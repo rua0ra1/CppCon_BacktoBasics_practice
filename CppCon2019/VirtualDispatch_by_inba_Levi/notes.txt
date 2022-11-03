@@ -1,0 +1,11 @@
+Improve the runtime performance
+- use pass by reference
+- Dynamic allocation decrease
+- function calls (*use inline)
+-code size -> cache miss
+
+How to increase the  minimise the overhead of VT
+- increase localization
+- dereferencing 
+Minimize the use of VT by using other 
+- alteranative polymorphisms using dyno and template meta programming
