@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "ostream": "cpp"
-    }
+    },
+    "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace"
 }
