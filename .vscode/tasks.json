@@ -5,11 +5,19 @@
             "label": "C/C++: g++ build active file",
             "command": "/usr/bin/g++",
             "args": [
+                "-std=c++2a",
                 "-fdiagnostics-color=always",
                 "-g",
+                "-pedantic-errors",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-Wall",
+                "-Weffc++",
+                "-Wextra",
+                "-Wconversion",
+                "-Wsign-conversion",
+                "-Werror",  
             ],
             "options": {
                 "cwd": "${fileDirname}"
