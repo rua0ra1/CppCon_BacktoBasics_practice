@@ -1,0 +1,16 @@
+there are two types of inheritance 1) implementation inheritance (not use it mostly) 2) interface inheritance (enables abstract oriented design)
+- dependency inversion principle
+- inverted dependencies so we can use another interface IO interface
+- we can do it using template, but it happens at compile time (static polymorphism ) not at runtime9dynamic polymorphism)
+- Implementation inheritance 
+- a pointer and reference to derived class can be implicitly converted to pointer and reference of base class (upcasting)
+- CRTP , type traits
+- Virtual method table
+- All or nothing
+- pointer or refernce semantics / value semantics ?
+- what  is the object slicing? 
+- downcasting- base is copied to derived which is downcasting
+- one of the important tool is poor virtual function
+- atleast 1 pure virtual function is abstract class and all pure virtual function is called interface
+- final - forbid any further hirerachy 
+
