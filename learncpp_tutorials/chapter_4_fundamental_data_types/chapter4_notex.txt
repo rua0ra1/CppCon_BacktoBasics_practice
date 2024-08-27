@@ -1,0 +1,49 @@
+4.1 introduction to fundamental data types
+- variable is the name assigned to the piece of memory that can be used to stored.
+- memory is organised into sequetial units called memory address(address)
+- in modern computer, each bit doesnt have address where we dont have enough address. so we have address for a byte (8 bit).
+byte sized chunk of data.
+- datatype to tell the complier how to intrepret the contents of memory. basic types primitive types or builtin types.
+- String is not builtin character, and string is sequence of character.
+
+
+4.2 Void
+- void means no type. An incomplete type is a type that has been declared not yet defined ( memory not allocated)
+- the void keyword has a third (more advanced) use in C++  which is void pointer
+
+4.3 object sizes and the sizeof operator
+- use static_assert to have the complier fail a build if it is  complied on an architecture where the assumption is not true.
+- sizeof uniary operator will type/variable return its size in bytes.
+
+4.4 Signed integers
+- An integer is an integral type. C++ has primary fundamental integer types available for use.
+- bool and char types are considered to be intergral types (because these types stroe their values as ineger values)
+-  short s;      // prefer "short" instead of "short int"
+   int i;
+   long l;       // prefer "long" instead of "long int"
+   long long ll; // prefer "long long" instead of "long long int"
+- signed keyword need not be used as intergers are signed by default.
+- Prefer the shorthand types that do not use the int suffix or signed prefix.
+- Set of specific values that a data type can hold its range. 
+- if we try to assign value (outside of respective type range). if the result is not mathematically defined or not in the range of reprenentable 
+values for its type, the behaviour is undefined.  it is called overflow **
+- When doing division with two integers (called integer division), 
+C++ always produces an integer result. Since integers can’t hold fractional values, any fractional portion is simply dropped (not rounded!).
+
+
+4.5 unsigned integers, and why to avoid them
+- unsigned short us; unsigned int ui;
+- An n-bit unsigned variable has a range of 0 to (2n)-1.
+- If an unsigned value is out of range, it is divided by one greater than the largest number of the type, and only the remainder kept.type simply “wraps around” 
+- It’s possible to wrap around the other direction as well. 0 is representable in a 2-byte unsigned integer, so that’s fine.
+- In C++, if a mathematical operation (e.g. arithmetic or comparison) has one signed integer and one unsigned integer, 
+  the signed integer will usually be converted to an unsigned integer **
+- Favor signed numbers over unsigned numbers for holding quantities (even quantities that should be non-negative) 
+  and mathematical operations. Avoid mixing signed and unsigned numbers.
+- 
+
+
+
+
+
+

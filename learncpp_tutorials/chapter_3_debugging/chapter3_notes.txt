@@ -1,0 +1,7 @@
+1)  One way to address this is to break a single long function into multiple shorter functions. 
+This process of making structural changes to your code without changing its behavior is called refactoring
+
+2)The issues found by static analysis tools may or may not be the cause of any particular problem you are having, 
+but may help point out fragile areas of code or issues that can be problematic in certain circumstances.
+
+3)
