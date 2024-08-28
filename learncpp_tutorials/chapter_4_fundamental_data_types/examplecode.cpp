@@ -1,5 +1,7 @@
 #include <iomanip> // for std::setw (which sets the width of the subsequent output)
 #include <iostream>
+#include <cstdint>
+#include<cstddef> // for std::size_t 
 
 void example1(){
     std::cout << std::left; // left justify output
@@ -46,11 +48,48 @@ void example3(){
 	std::cout << u - s << '\n'; // 2 - 3 = 4294967295
 }
 
+void example4(){
+    std::cout << "least 8:  " << sizeof(std::int_least8_t) * 8 << " bits\n";
+	std::cout << "least 16: " << sizeof(std::int_least16_t) * 8 << " bits\n";
+	std::cout << "least 32: " << sizeof(std::int_least32_t) * 8 << " bits\n";
+	std::cout << '\n';
+	std::cout << "fast 8:  " << sizeof(std::int_fast8_t) * 8 << " bits\n";
+	std::cout << "fast 16: " << sizeof(std::int_fast16_t) * 8 << " bits\n";
+	std::cout << "fast 32: " << sizeof(std::int_fast32_t) * 8 << " bits\n";
+
+}
+
+#include <iostream>
+#include <limits>
+
+void example5(){
+    std::cout<<sizeof(std::size_t)<<"\n";
+     std::cout << std::numeric_limits<float>::is_iec559 << '\n';
+    std::cout << std::numeric_limits<double>::is_iec559 << '\n';
+    std::cout << std::numeric_limits<long double>::is_iec559 << '\n';
+    int a {5}; //  integer
+    double b{5.0}; // flaoting point literal (no suffix means float)
+    float c{5.0f}; // f suffic means float type
+    
+}
+
+void example6(){
+    bool b{};
+    std::cout << "Enter a boolean value: ";
+
+   // Allow the user to input 'true' or 'false' for boolean values
+	// This is case-sensitive, so True or TRUE will not work
+	std::cin >> std::boolalpha;
+	std::cin >> b;
+
+	// Let's also output bool values as `true` or `false`
+	std::cout << std::boolalpha;
+	std::cout << "You entered: " << b << '\n';
+
+}
+
 int main()
 {
-   //example1();
-   //example2();
-   example3();   
-
+   example6();
     return 0;
 }

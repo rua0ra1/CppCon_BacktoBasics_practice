@@ -12,5 +12,7 @@ there are two types of inheritance 1) implementation inheritance (not use it mos
 - downcasting- base is copied to derived which is downcasting
 - one of the important tool is poor virtual function
 - atleast 1 pure virtual function is abstract class and all pure virtual function is called interface
-- final - forbid any further hirerachy 
+- final - forbid any further hirerachy
+- ******* If you assign a derived (child) object to a base (parent) object by value, 
+only the base part of the derived object is copied, and the derived part is "sliced" off. 
 

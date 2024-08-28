@@ -40,8 +40,42 @@ C++ always produces an integer result. Since integers can’t hold fractional va
   the signed integer will usually be converted to an unsigned integer **
 - Favor signed numbers over unsigned numbers for holding quantities (even quantities that should be non-negative) 
   and mathematical operations. Avoid mixing signed and unsigned numbers.
-- 
 
+4.6 Fixed witdth integers and size_t
+-  the integer variables will have a minimum size -- but they could be larger, depending on the target system.
+- fixed width (stdint.h) that are gauranteed to be the same size on any architecture
+- In c++ officially adopted these fixed widht integers as part of C++11. They can be accessed by including the <cstdint> header
+- the fixed width inetegers have two downsides that are typically raised.
+- Fast and least integers c++ also defines two alternative set of integers that are gauranteed to be defined.
+- When storing integral values where a specific size is important, it’s generally best to avoid std::int8_t and std::uint8_t.use unit16 or int16 these two behave like a chars instead of integers.
+- Our stance is that it’s better to be correct than fast, and better to fail at compile time than runtime
+- Prefer std::int#_t when storing a quantity that needs a guaranteed range.
+- Prefer std::uint#_t when doing bit manipulation or where well-defined wrap-around behavior is required.
+- what is the size_t? std::size_t is an alias for an implementation-defined unsigned integral type. It is used within the standard library to represent the byte-size or length of objects.
+
+4.7 Introduction to scientific notation
+- significand * 10^(exponent)
+- c++ use e or  E for exponent of base 10
+- The digtis in the significand is called significant digits  and more siginificant are the more precise the value is
+
+4.8 floating point numbers
+- the floating part of the name floating point refers to the fact that the decimal point can float-
+that is, it can support a variable number of digits before and after the decimal point
+- Note that by default, floating point literals default to type double. An f suffix is used to denote a literal of type float.
+- The precision of a floating point type defines how many significant digits it can represent without information loss.
+- a float has 6 to 9 digits of precision. This means that a float can exactly represent any number with up to 6 significant digits. 
+A number with 7 to 9 significant digits may or may not be represented exactly depending on the specific value. 
+And a number with more than 9 digits of precision will definitely not be represented exactly.
+- Favor double over float unless space is at a premium, as the lack of precision in a float will often lead to inaccuracies. ***
+- We can override the default precision that std::cout shows by using an output manipulator function named std::setprecision(). in iomainip header 
+
+4.9 Boolean values
+ - bool b3 {}; // default initialize to false
+ - boolean values actually stored in integers values 1 is true and 0 is false
+ - std::boolalpha is the statement for cout to print actual true and false instead of 1 and 0
+
+ 4.10 Introduction to if statements
+ - 
 
 
 
