@@ -75,7 +75,30 @@ And a number with more than 9 digits of precision will definitely not be represe
  - std::boolalpha is the statement for cout to print actual true and false instead of 1 and 0
 
  4.10 Introduction to if statements
- - 
+ - if statemens and early returns
+
+4.11 chars
+- The char data type was designed to hold a single character.a character can be single letter,number, symbol or whitespace
+- The char is a integral type meaning the underlying value
+- There are some sequences of characters in C++ that have special meaning. 
+  These characters are called escape sequences. An escape sequence starts with a ‘\’ (backslash) character, and then a following letter or number.
+- '\n' and '\t' is the example of the backlash   
+- Avoid multicharacter literals (e.g. '56').
+
+4.12 introduction to type conversion and static_cast
+- the process of converting a value from one type to another type is called type conversion.
+- when compiler does type conversin on our behalf is called implicit type conversion
+- This is one of the primary reasons brace initialization is the preferred initialization form. 
+  Brace initialization will ensure we don’t try to initialize a variable with an initializer that 
+  will lose value when it is implicitly type converted:
+- one of the main advantage of the brace initialization is implicit type conversion.  it will avoid narrow conversion and wide conversion
+- static_cast will be used for the explicit type conversion static_cast<new_type>(expression)
+- Signed integral values can be converted to unsigned integral values, and vice-versa, using a static cast.
+
+
+
+
+
 
 
 

@@ -88,8 +88,46 @@ void example6(){
 
 }
 
+void example7(){
+    char name {69};
+    std::cout<<name<<"\n";
+}
+
+void example8(){
+    std::cout<<"Input a keyboard character: ";
+    char ch{};
+    std::cin >> ch; // ch = 'a', "bcd" is left queued.
+    std::cout << "You entered: " << ch << '\n';
+
+    // Note: The following cin doesn't ask the user for input, it grabs queued input!
+    std::cin >> ch; // ch = 'b', "cd" is left queued.
+    std::cout << "You entered: " << ch << '\n';
+}
+
+void print(int x)
+{
+	std::cout << x << '\n';
+}
+
+
+void example9(){
+    int a_eq=2.2;
+    // int a_in{2.2};
+
+    double b_eq=2;
+    double b_in{2};
+
+    // std::cout<< "print the int values"<< a_eq <<" "<< a_in<<std::endl;//
+    std::cerr<< "print the double values"<< b_eq <<" "<< b_in<<std::endl;
+
+    // or we can explicitly convert it using static_cast
+    print(static_cast<int>(5.555));
+
+
+}
+
 int main()
 {
-   example6();
+   example9();
     return 0;
 }
