@@ -1,0 +1,130 @@
+5.1 constant variables (named constants)
+- a constant is a value that may not be changed during the program's execution.
+- named and literal constants, named constant are also called symbolic constant and constants
+- we can define named constants in three ways
+    . constant variable 
+    . object like macros with substitution text
+    . Enumerated constants
+- A variable whose value cannot be changed after initialzation is called a constant variable.
+- preffered definition const type variable {9.8} like const float gravity{9.81f}
+- The initializer of a const variable can be a non-constant value.
+- More common in C++ is to use intercapped names with a ‘k’ prefix (e.g. kEarthGravity). but we can use them as normal variable name convention
+- The const keyword also adds a small amount of unnecessary clutter to the function prototype.dont use const when pass by value.
+- object like macros with substitution text
+- #define MY_NAME "Alex". MY_NAME is a name, and the substitution text is a constant value, so object-like macros with substitution text are also
+name constant
+-  why can't we use preprocessor constant than named constant. there are three problems
+    1) scoping,because macros dont follow normal c++ scoping rules. once a macros is # defined all subsequet occurences of the macros name in the current file
+    2) difficult to debug. it is often harder to debug code using macros. althoough your source code will have the macros name.
+    3) macro substitution behaves differently than everything else in C++. Inadvertent mistakes can be easily made as a result.
+prefer const variable over object like macros with substitution text
+- use inline variables 
+
+- Type qualifers is a keyword that is applied to a type that modifies how that type behaves.c++ has two type qualifers const and volatile
+
+
+
+5.4 Constant expressions and compile-time optimisation
+- "as if rule" says that the compiler can modify a program however it likes in order to produce more.
+- there is one exception to the as-if unnecessary 
+- modern c++ compilers are able to evaluate some expressions at compile time. when this occurs, the compiler can replace the expression with 
+the result of the expression.
+-The ability for C++ to perform compile-time evaluation is one of the most important and evolving areas of modern C++.
+- One kind of expression that can always be evaluated at compile time is called " constant expression" ****************
+-  A constant expression is an expression that contains only compile-time constants and operators/functions that support compile-time evaluation. ********
+- A compile-time constant is a constant whose value must be known at compile time. This includes:
+   1) Literal 
+   2) constexpr variables 
+   3) const integral variables with a constant expression initializer (const int x {5})
+   4) non type template parameters
+   5) Enumerators
+- Runtime constant cannot be used in a constant expression
+- why we care about constat expression
+  1) constant expression are always eligible for compile time evaluation
+  2) with runtime expressions, only the type of the expression is known at compile-time. with const expression, both the type and
+  the value of the expression is known at compile time. so it easy to do sanity check at build time
+  3) certain c++ features that we will cover in future lessons require constant expressions
+
+- few common places where const expression is required
+  1) the initializer of a constexpr variable
+  2) a non type template argument
+  3) the defined length of a std::array or a c-style array
+- Constant expressions (including constexpr variables and constexpr functions, 
+which we’ll cover shortly) can help produce code that is faster, smaller, and safer. Some C++ features require constant expressions.
+- the compiler is only required to evaluate constant expressions at compile-time in context that require a constant expression. the const expression
+not required that it will evaluate at compile or runtime.
+- The compiler is only required to evaluate constant expressions at compile-time in contexts that require a constant expression. It may or may not do so in other cases.
+-Compilers have long been able to optimize constant subexpressions, even when the full expression is a runtime expression. 
+This optimization process is called “constant folding”, and is allowed under the as-if rule.
+- when a varaible is removed from a program, we say the variable has been optimised out 
+- Ranking variables by the likelihood of the compiler being able to optimize them:
+  1) Compile-time constant variables (always eligible to be optimized)
+  2) Runtime constant variables
+  3) Non-const variables (likely optimized in simple cases only
+-To help minimize such issues, debug builds will typically turn down (or turn off) optimizations, 
+so that the compiled code will more closely match the source code.
+
+5.5 Constexpr variables
+- the use of const to create compile time constant varibles does not extend to non integral variables. and 
+there are many cases where we would like non-integral variables
+- the meaning of the const is that the value of an object cannot be changed after initialization. the value of the initializer
+may be known a tcompile time or runtime.  Evaluation refers to the process of computing the value of an expression or function call
+- constexpr are implicitly const and const are not implicitly constexpr
+- best practice
+   1) Any constant variable whose initializer is a constant expression should be declared as constexpr.
+   2) Any constant variable whose initializer is not a constant expression (making it a runtime constant) should be declared as const.
+   3) Caveat: In the future we will discuss some types that are not fully compatible with constexpr 
+      (including std::string, std::vector, and other types that use dynamic memory allocation). 
+      For constant objects of these types, either use const instead of constexpr, or pick a different type that is constexpr compatible 
+      (e.g. std::string_view or std::array).
+- const and constexpr function parameters
+    - normal function calls are evaluated at runtime, with the supplied arguments being used to initialise the function parameters
+      1) const function parameters are treated as runtime constants 
+      2) function parameters cannnot be declared as constexpr since their initiaization value isn't determined until runtime.
+- nomenclature
+1) compile time constant 2) constexpr 3) constant expression 4) runtime expression 5) runtime constant
+
+
+5.6 The Conditional operator
+- condition ? (statement1):(statement2). It is also called arthematic if operator
+- conditional operator are expressions rather than statements, the conditional operator can be used in
+places where an expression is required.
+- Because C++ prioritizes the evaluation of most operators above the evaluation of the conditional operator
+- Best practice:-
+  Parenthesize the entire conditional operation (including operands) when used in a compound expression.
+  For readability, consider parenthesizing the condition if it contains any operators (other than the function call operator).
+- Exceptions are a runtime mechanism for handling unexpected situations in your code.
+- Errors are usually compile-time or runtime issues that prevent the code from functioning correctly.
+- Warnings are compile-time messages indicating potential issues that don’t stop the compilation but should be reviewed.
+
+
+ 
+ 5.7 inline functions and variables
+ - write a code as part of an exisiting function ( called writing code "inplace" or " inline")
+ - Create a function (and possibly sub functions) to handle the task.
+ - there are lot of benefits of writing a function but one of the drawback is overhead of the function
+ - the extra work that a must happen to set up and facilitate a function is called overhead.
+ - for small function ovehead is signifcant than the actual function itself. we can use inline expansuon
+ - Inline expansion is a process where a function call is replaced by the code from the called function’s definition.
+ - Modern optimizing compilers make the decision about when functions should be expanded inline.
+ - A function that is declared using the inline keyword is called an inline function.
+ - Do not use the inline keyword to request inline expansion for your functions.
+ - In modern C++, the term inline has evolved to mean “multiple definitions are allowed”. 
+    Thus, an inline function is one that is allowed to be defined in multiple translation units (without violating the ODR).
+ -Inline functions are typically defined in header files, where they can be #included into the top of any code file that needs to see the full definition of the identifier. 
+  This ensures that all inline definitions for an identifier are identical.
+ - Inline variables (from c++17) which are variables that are allowed to be defined in multiple files.
+  inline variable work similarly to inline functions, and have the same requirements
+  - Static constexpr data members 15.6 -- Static member variables.
+Unlike constexpr functions, constexpr variables are not inline by default (excepting those noted above)!     ************
+- automatic duration to static duration 
+- Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.
+
+
+
+
+
+
+
+
+
