@@ -1,0 +1,25 @@
+- variable is needs to be stored in memory.
+- allocating and free memory is called memory management. (automatic clearning garabe collection)
+- C++ wont use garabe collection to have better control on the when to free the memory
+- instead it takes two tair approach 
+    1) small variables live in scopes
+    2) allocate manually for complex cases 
+- What happens when allocate and free memory
+    1) avoid memory fragmentation (small gap)
+    2) ulimit -s --> use stack like data structure
+- Signal SIGSEGV, we are trying to access the memory which suppose to not to access or our program don't have the
+access
+- 1) accomodate any size data 
+  2) data should 
+- The Heap memory
+ 1) allocating on heap defently less efficient than allocating on stack
+ 2) but it has advantage of allocating and deallocating whenever we need
+ 3) new, newarray allocate memory on heap, it will cause the memory leak
+
+- Smart pointers ( Resource Allocation is intializaton) principles) RAII containers
+- std unique pointer  # memory header
+- std share pointer 
+- zero cost abstraction
+- shared pointer have counter control block
+- smart pointer are polymorphic
+- never write a manual delete
