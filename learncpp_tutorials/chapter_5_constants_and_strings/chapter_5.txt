@@ -121,6 +121,75 @@ Unlike constexpr functions, constexpr variables are not inline by default (excep
 - Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.
 
 
+5.8 Constexpr and consteval functions
+- constexpr keyword is used to create compile time constants and also constant expressions 
+  which are evalutated at compile time rather than runtime.
+- One issue with const expr is that function call to a normal function is not allowed in constant expression
+- When a constexpr function evaluates at runtime, it evaluates just like a normal (non-constexpr) function would.
+  In other words, the constexpr has no effect in this case.
+- Compile-time evaluation of constexpr functions is only guaranteed when a constant expression is required.
+- A constexpr function is a function that is allowed to be called in a constant expression.
+- To evaluate at compile-time, two other things must also be true:
+  1) The call to the constexpr functions must have arguments that are known at compile time (eg:- are const expressions
+  2) All the statements and expressions within the constexpr funciton must be evaluate at compile time
+- Constexpr functions can also be evaluated at runtime, in which case they will return a non-constexpr result.
+- Constexpr functions can also be evaluated at runtime, in which case they will return a non-constexpr result. For example:
+- Compile-time evaluation of constexpr functions is only guaranteed when a constant expression is required.
+- Constexpr/consteval function parameters are not constexpr
+- constexpr functions are implicitly inline. they are often defined in header files, so they can be #include into any .cpp file that
+  requires the full definition
+- Constexpr/consteval functions used in a single source file (.cpp) can be defined in the source file above where they are used.
+- Constexpr/consteval functions used in multiple source files should be defined in a header file so they can be included into each source file.
+- constexpr makes functions harder to debug because you can’t inspect them at runtime.
+- Unless you have a specific reason not to, a function that can evaluate as part of a constant expression should be made constexpr.
+- A function that cannot be evaluated as part of a constant expression should not be marked as constexpr.
+
+5.9 Introduction to std::strings
+- C++ avoids c style string literals and C++ has introduced much better string types which are easy to work with
+- 1) std::string and std::string_view
+- std::string can handle strings of different lengths
+- using std::string with std::cin may yield some suprises  ( std::cin>> read till next space)
+- std::getline() function instead of std::cin to read complete line.
+- If using std::getline() to read strings, use std::cin >> std::ws input manipulator to ignore leading whitespace. 
+  This needs to be done for each std::getline() call, as std::ws is not preserved across calls.
+- With normal functions, we call function(object). With member functions, we call object.function().
+- int length { static_cast<int>(name.length()) };
+- int len { static_cast<int>(std::ssize(name)) };
+- Do not pass std::string by value, as it makes an expensive copy. ******************
+- If returning a C-style string literal, use a std::string_view return type instead
+- std::cout << "foo\n";   // no suffix is a C-style string literal
+- std::cout << "goo\n"s;  // s suffix is a std::string literal
+- his happens because constexpr std::string isn’t supported at all in C++17 or earlier, 
+  and only works in very limited cases in C++20/23. If you need constexpr strings, use std::string_view instead 
+
+5.10 introduction to std::string_view
+- copying and initialization of the string is expensive
+- To address the issue with std::string being expensive to initialize (or copy), C++17 introduced std::string_view
+- Prefer std::string_view over std::string when you need a read-only string, especially for function parameters. ****************
+- std::string_view will not implicitly convert to std::string but if you need
+- Explicitly create a std::string with a std::string_view initializer (which is allowed, since this will rarely be done unintentionally)
+  Convert an existing std::string_view to a std::string using static_cast
+- Double-quoted string literals are C-style string literals by default. 
+  We can create string literals with type std::string_view by using a sv suffix after the double-quoted string literal. 
+  The sv must be lower case.
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

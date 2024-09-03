@@ -96,10 +96,96 @@ void example7(){
     std::cout << "The class size is: " << classSize << '\n';
 }
 
+// example 8
+// double calcCircumference(double radius){
+//     constexpr double pi {3.14159265359};
+//     return 2.0*pi*radius;
+// }
+// void example8(){
+//      constexpr double circumference { calcCircumference(3.0) }; // compile error
+
+//     std::cout << "Our circle has circumference " << circumference << "\n";
+
+//     return 0;
+
+// }
+
+// this example won't work because { calcCircumference(3.0) }; needs to be constexpr
+
+// working example
+constexpr double calcCircumference( double radius_in){
+    constexpr double pi {3.14159265359};
+    return 2.0*pi*radius_in;
+}
+void example8(){
+
+    constexpr double radius{3.0};
+
+     constexpr double circumference { calcCircumference(radius) }; // compile error
+
+    std::cout << "Our circle has circumference " << circumference << "\n";
+
+}
+
+// example 9 
+constexpr int greater (int x, int y){
+    return (x>y?x:y);
+}
+
+void example9(){
+    int x{5};
+    int y{6};
+      
+    // as the x and y are not constexpr greater return non constexpr value
+    std::cout<< greater(x,y)<<" is greater \n";
+}
+
+//EXMAPLE 10
+
+//The compiler is not required to determine whether a constexpr function is evaluatable at compile-time until it is actually evaluated at compile-time. 
+
+constexpr int  getValue(int x){
+    return x;
+}
+
+constexpr int foo(int x){
+    return getValue(x);
+}
+
+//example 11
+
+void example11(){
+    std::cout << "Enter your full name: ";
+    std::string name{};
+    std::getline(std::cin >> std::ws, name); // read a full line of text into name
+
+    std::cout << "Enter your favorite color: ";
+    std::string color{};
+    std::getline(std::cin >> std::ws, color); 
+    // read a full line of text into color
+    /* c++ has input manipulator so we are telling std::cin to ignore any white space in input */
+}
+
+#include<string>
+#include<string_view>
+
+void printString(std::string str)
+{
+	std::cout << str << '\n';
+}
+
+void example12(){
+    std::string_view sv{ "Hello, world!" };
+
+	// printString(sv);   // compile error: won't implicitly convert std::string_view to a std::string
+
+	std::string s{ sv }; // okay: we can create std::string using std::string_view initializer
+	printString(s);      // and call the function with the std::string
+
+	printString(static_cast<std::string>(sv)); // okay: we can explicitly cast a std::string_view to a std::string
+}
 
 int main(){
-    // example1();
-    //example2(a);
-    //  example3();
-    example6();
+
+
 }
