@@ -1,0 +1,40 @@
+7.1 Compound Statemets(block)
+- The nesting level (also called the nesting depth) of a function is the maximum number of nested blocks you can be inside at any point in the function
+- Keep the nesting level of your functions to 3 or less. If your function has a need for more nested levels, consider refactoring your function into sub-functions.
+
+7.2 user defined namespaces and the scope resolution operator
+- Note that this error happens at the point of redefinition, so it doesn’t matter whether function doSomething is ever called.
+- C++ allows us to define our own namespaces via the namespace keyword. Namespaces that you create in your own programs are casually called user-defined namespaces
+- We recommend starting namespace names with a capital letter. However, either style should be seen as acceptable.
+- There are two different ways to tell the compiler which version of doSomething() to use, via the scope resolution operator, 
+  or via using statements (which we’ll discuss in a later lesson in this chapter).
+- The scope resolution operator can also be used in front of an identifier without providing a namespace name 
+  (e.g. ::doSomething). In such a case, the identifier (e.g. doSomething) is looked for in the global namespace.
+- If an identifier inside a namespace is used and no scope resolution is provided, the compiler will first try to find a matching declaration in that same namespace
+- Multiple namespace blocks are allowed
+- Do not add custom functionality to the std namespace.
+- Since C++17, nested namespaces can also be declared this way: namespace Foo::Goo{}
+- Because typing the qualified name of a variable or function inside a nested namespace can be painful, C++ allows you to create namespace aliases
+   namespace Active = Foo::Goo
+-The examples in these tutorials will typically not be namespaced unless we are illustrating something specific about namespaces, to help keep the examples concise.
+
+7.3 Local variables
+- A identifierscope determines where an identifier can be acesed within the source code.
+- When an identifier can be accessed we say it is in scope if not out of scope
+- Local variables have block scope, which means they are in scope from their point of definition to the end of the block they are defined within.
+- Variable names must be unique within a given scope, otherwise any reference to the name will be ambiguous. Consider the following program:
+- Local variables can be defined inside nested blocks. This works identically to local variables in function body blocks:
+- local variables have no linkage. 
+- Scope and linkage may seem somewhat similar. However, scope determines where declaration of a single identifier can be seen and used in the code. 
+- Linkage determines whether multiple declarations of the same identifier refer to the same object or not.
+- If a variable is only used within a nested block, it should be defined inside that nested block:
+- Define variables in the most limited existing scope. Avoid creating new blocks whose only purpose is to limit the scope of variables.
+
+
+
+
+
+
+
+
+
