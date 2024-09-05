@@ -30,6 +30,81 @@
 - If a variable is only used within a nested block, it should be defined inside that nested block:
 - Define variables in the most limited existing scope. Avoid creating new blocks whose only purpose is to limit the scope of variables.
 
+7.4 Introduction to global variables
+- identifiers declared in the global namespace have global namescope (commonly called global scope), and sometimes informally called file scope
+- Variables declared inside a namespace are also global variables.
+- Prefer defining global variables inside a namespace rather than in the global namespace. ************
+- global variables are created when the program starts (before main() begins execution), and destroyed when it ends. this is called static duration. 
+  variable with static duration are called static variable
+- use "g" and "g_" prefic for when naming global variables
+- to help differentiate them form local variables and function parameters
+- Unlike local variables, which are uninitialized by default, variables with static duration are zero-initialized by default.
+- Just like local variables, global variables can be constant. As with all constants, constant global variables must be initialized.
+
+7.5 variable shadowing (name hiding)
+- similar to how variables in a nested block can shadow variables in an outer block, local variables with the name as 
+  global variable will shadow the global variable wherever the local variable is in scope.
+- However, because global variables are part of the global namespace, we can use the scope operator (::) with no prefix to tell the compiler we mean the global variable
+- Avoid variable shadowing.
+
+7.6 internal linkage
+- An identifiers linkage determines whether other declarations of that name refer to the same object or not.
+- Global variable and functions identifiers canhav either internal linkage and external linkage
+- An identifier with internal linkage can be see and used with in a single translation unit, but it not accessible from other translation units.
+- identifiers with internal linkage may not be visible to the linker at all. Alternatively, they may be visible to the linker, but marked for use in a specific translation unit.
+- Global variables with internal linkage are sometimes called internal variables.To make a non-constant global variable internal, we use the static keyword.
+- Const and constexpr global variables have internal linkage by default (and thus don’t need the static keyword -- if it is used, it will be ignored).
+- The use of the static keyword above is an example of a storage class specifier, which sets both the name’s linkage and its storage duration. 
+   The most commonly used storage class specifiers are static, extern, and mutable
+- mutable allows modification of class members even in const objects.
+- As noted above, function identifiers also have linkage. Functions default to external linkage 
+  (which we’ll cover in the next lesson), but can be set to internal linkage via the static keyword:
+- why bother giving identifiers intenal linkage?
+ 1) There is an identifier we want to make sure isn’t accessible to other files. This could be a global variable we don’t want messed with, or a helper function we don’t want called.
+ 2) To be pedantic about avoiding naming collisions. Because identifiers with internal linkage aren’t exposed to the linker, they can only collide with names in the same translation unit, not across the entire program.
+- Give identifiers internal linkage when you have an explicit reason to disallow access from other files.
+- Consider giving all identifiers you don’t want accessible to other files internal linkage (use an unnamed namespace for this).
+
+7.7 External linkage and variable forward declarations
+- An identifier with external linkage can be seen and used both from the file in which it is defined, and from other code files (via a forward declaration). 
+  In this sense, identifiers with external linkage are truly “global” in that they can be used anywhere in your program!
+- Function have external linkage by default
+- The forward declaration tells the compiler about the existence of the function, and the linker connects the function calls to the actual function definition.
+- Global variables with external linkage are called external variables. To make a global variable external(), we can use the extern keyword.
+- To actually use an external global variable that has been defined in another file, you also must place a forward declaration for the global 
+  variable in any other files wishing to use the variable. For variables, 
+  creating a forward declaration is also done via the extern keyword (with no initialization value).
+- n some contexts, extern means “give this variable external linkage”. In other contexts, extern means 
+  “this is a forward declaration for an external variable that is defined somewhere else”. 
+
+7.8 why (non const)global vairables are evil
+- not all global vairables are bad. but, mostly talking about non const global Variables
+- A function that utilizes nothing but its parameters and has no side effects is perfectly modular.
+- Use local variables instead of global variables whenever possible.
+- Initialization of static variables (which includes global variables) happens as part of program startup, before execution of the main function. This proceeds in two phases.
+  1) The first phase is called static initialization. In the static initialization phase, 
+  global variables with constexpr initializers (including literals) are initialized to those values. 
+  Also, global variables without initializers are zero-initialized.
+  2) The second phase is called dynamic initialization. 
+    This phase is more complex and nuanced, but the gist of it is that global variables with non-constexpr initializers are initialized.
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 
 
