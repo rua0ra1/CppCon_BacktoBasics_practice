@@ -87,7 +87,82 @@
   Also, global variables without initializers are zero-initialized.
   2) The second phase is called dynamic initialization. 
     This phase is more complex and nuanced, but the gist of it is that global variables with non-constexpr initializers are initialized.
+- The ambiguity in the order that objects with static storage duration in different translation units are initialized is often called the static initialization order fiasco.
+- As a rule of thumb, any use of a global variable should meet at least the following two criteria: There should only ever be one of the thing the variable represents in your program, 
+ and its use should be ubiquitous throughout your program.
+- First, prefix all non-namespaced global variables with “g” or “g_”, or better yet, put them in a namespace
+
+7.9 sharing global constants across multiple files (using inline variables)
+- we can declare these in header file and include it whenever is necessary
+- Downside: Changing a single constant value would require recompiling every file that includes the constants header, which can lead to lengthy rebuild times for larger projects.
+- One way to avoid these problems is by turning these constants into external variables, since we can then have a single variable (initialized once) that is shared across all files.
+- In order for variables to be usable in compile-time contexts, such as array sizes, the compiler has to see the variable’s definition (not just a forward declaration).
+- Thus outside of constants.cpp, these variables can’t be used anywhere that requires a compile-time constant. 
+  Second, because compile-time constants can typically be optimized more than runtime constants, the compiler may not be able to optimize these as much.
+- Global constants as inline variables C++17
+  1) by making our constexpr varibles inline, we can define them in a header file and then #inlcude them into any .cpp file that requires them.
+  2) Constexpr functions are implicitly inline, but constexpr variables are not implicitly inline. If you want an inline constexpr variable, you must explicitly mark it as inline.
+
+- If you need global constants and your compiler is C++17 capable, prefer defining inline constexpr global variables in a header file. *********************
+
+7.10 static local variables
+- The term static is one of the most confusing terms in the C++ language, in large part because static has different meanings in different contexts.
+- We covered that global variables have static duratiion which means they are created when the program starts and destroyed when the program ends.
+- We also dicussed how the static keyword gives a global indetifier(default have external linkage) internal linkage. which means the indetifier can only be used in'
+same file in which it is defined
+- static keyword when appplied to local variable
+- using the static keyword on a local variable changes its duration automatic duration to static duration
+- Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.
+- Because they have static duration, static local variables that are not explicitly initialized will be zero-initialized by default.
+- Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.
+- A static local variable has block scope like a local variable, but its lifetime is until the end of the program like a global variable.
+- Static local variables can be used when a function needs a persistent object that is not directly accessible outside of the function.
+- Static local variables are best used to avoid expensive local object initialization each time a function is called.
+- Static local variables should only be used if in your entire program and in the foreseeable future of your program, the variable is unique and it wouldn’t make sense to reset the variable.
+- Best practice Const static local variables are generally okay to use.
+- Non-const static local variables should generally be avoided. If you do use them, ensure the variable never needs to be reset, and isn’t used to alter program flow.
+
+7.12 using declarations and using directives
+- Fast forward to today -- if you’re using the standard library a lot, typing std:: 
+  before everything you use from the standard library can become repetitive, and in some cases, can make your code harder to read.
+  C++ provides some solutions to both of these problems, in the form of using-statements.
+- Qualified and unqualified names, A name can be either qualified and unqualified
+  1) A qualified name is a name that includes an associated scope.Most often, names are qualified with a namespace using the scope resolution or class name or object
+  2) An unqualified name is a name that does not include a scoping qualifier. 
+- using -declarations
+  1) one way to reduce the repetition of typing std:: over and over is to utilize a using declaration statement. A using declaration allows us to use an unqualified
+    name(with no scope) as an alias for a qualified name.
+  2) The using-declaration is active from the point of declaration to the end of the scope in which it is declared.
+- using direcrives
+  1) another way to simplify things is to use a using directive. A using directive allows all identifiers in a given namespace to be referenced without qualification
+    from the scope of the using directive.
+-  In selecting a function from a set of potentially matching functions, it will prefer a function that 
+   requires no argument conversions over a function that requires argument conversions. 
+- Avoid using-directives (particularly using namespace std;) altogether, except in specific circumstances (such as using namespace std::literals to access the s and sv literal suffixes).
+   Using-declarations are generally considered safe to use inside functions. Avoid using them in namespaces, especially the global namespace of a header file.
+- Prefer explicit namespace qualifiers over using-statements. 
+  Avoid using-directives altogether (except using namespace std::literals). Using-declarations are okay to use in .cpp files, after the #includes.
+- The using keyword is also used to define type aliases, which are unrelated to using-statements. We cover type aliases in lesson 10.7 
+
+7.13 unnamed namespace
+- This might make unnamed namespaces seem useless. But the other effect of unnamed namespaces is that all identifiers inside an unnamed namespace are treated as if they have internal linkage, 
+   which means that the content of an unnamed namespace can’t be seen outside of the file in which the unnamed namespace is defined.
+- For functions, this is effectively the same as defining all functions in the unnamed namespace as static functions
+- If you’re hardcore, you can take the opposite approach -- put all content that isn’t explicitly meant to be exported/external in an unnamed namespace.
+- Prefer unnamed namespaces when you have content you want to keep local to a translation unit. Avoid unnamed namespaces in header files.
+- An alternative is to use an inline namespace. An inline namespace is a namespace that is typically used to version content.
+  Much like an unnamed namespace, anything declared inside an inline namespace is considered part of the parent namespace. 
+  However, unlike unnamed namespaces, inline namespaces don’t affect linkage.
 - 
+
+
+
+
+
+
+
+
+
 
 
 

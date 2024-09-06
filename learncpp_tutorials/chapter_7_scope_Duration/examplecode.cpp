@@ -77,13 +77,159 @@ extern const int g_x{ 1 };     // defines initialized const external global vari
 extern constexpr int g_x{ 2 }; // defines initialized constexpr external global variable
 */
 
+/* example 7
 
-
-
-
-
-int main (){
-
-    example3();
-
+namespace constants
+{
+    constexpr double gravity { 9.8 }; // has internal linkage, is accessible only within this file
 }
+
+double getGravity() // has external linkage, can be accessed by other files
+{
+    // We could add logic here if needed later
+    // or change the implementation transparently to the callers
+    return constants::gravity;
+}
+Global const variables have internal linkage by default, gravity doesn’t need to be static.
+*/
+
+/* example 8
+
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+// define your own namespace to hold constants
+namespace constants
+{
+    // constants have internal linkage by default
+    constexpr double pi { 3.14159 };
+    constexpr double avogadro { 6.0221413e23 };
+    constexpr double myGravity { 9.2 }; // m/s^2 -- gravity is light on this planet
+    // ... other related constants
+}
+#endif
+
+*/
+
+
+
+/* example 9
+
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+// define your own namespace to hold constants
+namespace constants
+{
+    inline constexpr double pi { 3.14159 }; // note: now inline constexpr
+    inline constexpr double avogadro { 6.0221413e23 };
+    inline constexpr double myGravity { 9.2 }; // m/s^2 -- gravity is light on this planet
+    // ... other related constants
+}
+#endif
+
+#include "constants.h"
+
+#include <iostream>
+
+int main()
+{
+    std::cout << "Enter a radius: ";
+    double radius{};
+    std::cin >> radius;
+
+    std::cout << "The circumference is: " << 2 * radius * constants::pi << '\n';
+
+    return 0;
+}
+
+*/
+
+/* // example 10
+
+#include <iostream>
+
+void increamentAndPrint(){
+   static int value{1};// automatic duration by default
+    ++value;
+    std::cout<<value<<'\n';
+
+} */
+
+
+//example 11
+int generateID()
+{
+    static int s_itemID;
+    return s_itemID++; // makes copy of s_itemID, increments the real s_itemID, then returns the value in the copy
+}
+
+// example 12
+
+/* int main()
+{
+   using std::cout; // this using declaration tells the compiler that cout should resolve to std::cout
+   cout << "Hello world!\n"; // so no std:: prefix is needed here!
+
+   return 0;
+} // the using declaration expires at the end of the current scope
+
+
+#include <iostream>
+
+int main()
+{
+   using namespace std; // all names from std namespace now accessible without qualification
+   cout << "Hello world!\n"; // so no std:: prefix is needed here
+
+   return 0;
+} // the using-directive ends at the end of the current scope
+ */
+
+
+//example 13
+
+/* 
+int main()
+{
+    {
+        using namespace Foo;
+        // calls to Foo:: stuff here
+    } // using namespace Foo expires
+
+    {
+        using namespace Goo;
+        // calls to Goo:: stuff here
+    } // using namespace Goo expires
+
+    return 0;
+}
+ */
+
+//example 14 
+
+inline namespace V1
+{
+    void doSomething(){
+          std::cout << "V1\n";
+    }
+}
+
+namespace V2 // declare a normal namespace named V2
+{
+    void doSomething()
+    {
+        std::cout << "V2\n";
+    }
+}
+
+int main()
+{
+    V1::doSomething(); // calls the V1 version of doSomething()
+    V2::doSomething(); // calls the V2 version of doSomething()
+
+    doSomething(); // calls the inline version of doSomething() (which is V1)
+
+    return 0;
+}
+
