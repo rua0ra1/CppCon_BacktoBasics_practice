@@ -32,4 +32,20 @@ the conditonal of a constexpr if staemnt will be evaluated at complie time.
 - Prefer not to indent labels. This allows them to stand out from the surrounding code without implying that they are defining a nested scope region.
 
 
+8.6 switch fallthough and scoping
+- Execution will then continue sequently until one of the following termination conditions happen
+   1) The end of the switch block is required
+   2) Another control flow statement (typically a break or return) causes the switch block or function to exit.
+   3) Something else interrupts the normal flow of the program (e.g. the OS shuts the program down, the universe implodes, etc…)
+- To help address this, C++17 adds a new attribute called [[fallthrough]]. to explicitly tell the other it is intended
+- Use the [[fallthrough]] attribute (along with a null statement) to indicate intentional fallthrough.
+- The first statement after all of the case statements in the above program is return true, so if any case labels match, the function will return true.
+- With if statements, you can only have a single statement after the if-condition, and that statement is considered to be implicitly inside a block:
+- You can declare or define (but not initialize) variables inside the switch, both before and after the case labels:
+- If defining variables used in a case statement, do so in a block inside the case.
+
+
+
+
+
 
