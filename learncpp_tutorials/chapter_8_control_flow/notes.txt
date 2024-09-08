@@ -1,0 +1,35 @@
+8.1,8.2, 8.3 Control flow introducton
+- the specific sequence of statements that the cpu executes is called the program's execution path.
+- when a control flow statement causes point of execution to change to a non sequential statement, this is called branching.
+- Consider putting single statements associated with an if or else in blocks (particularly while you are learning). 
+- The above program introduces a source of potential ambiguity called a dangling else problem
+- null statement is an expression statement that consists of just semi colon.
+- Be careful not to “terminate” your if statement with a semicolon, otherwise your conditional statement(s) will execute unconditionally 
+
+8.4 constexpr if statements
+- normally the conditional of an if statement is evaluated at runtime.
+- C++ 17 , constexpr introduces the constrexpr if statement which requires the conditonal to be constant expression,
+the conditonal of a constexpr if staemnt will be evaluated at complie time.
+- Favor constexpr if statements over non-constexpr if statements when the conditional is a constant expression.
+
+8.5 switch statement basics
+- we can use manyelse statement but the if else condition will be evalued n times depending on the input (which is very inefficient),
+  and the reader has to be sure that it is x being evaluated each time (not some other variable).
+- testing a variable or expression for equality against a set of different values is common, 
+  C++ provides an alternative conditional statement called a switch statement that is specialized for this purpose
+- Compared to the original if statement, the switch statement has the advantage of only evaluating the expression once (making it more efficient), 
+  and the switch statement also makes it clearer to the reader that it is the same expression being tested for equality in each case.
+- Prefer switch statements over if-else chains when there is a choice.
+- The one restriction is that the condition must evaluate to an integral
+-  Historically, the most common way for compilers to implement switch statements is via Jump tables -- and jump tables only work with integral values.
+- Place the default case last in the switch block.
+- In the above examples, we used return statements to stop execution of the statements after our labels. However, this also exits the entire function.
+- A break statement (declared using the break keyword) tells the compiler that we are done executing statements within the switch, and that 
+  execution should continue with the statement 
+  after the end of the switch block. This allows us to exit a switch statement without exiting the entire function.
+- Each set of statements underneath a label should end in a break statement or a return statement. 
+  This includes the statements underneath the last label in the switch.
+- Prefer not to indent labels. This allows them to stand out from the surrounding code without implying that they are defining a nested scope region.
+
+
+
