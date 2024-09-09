@@ -63,7 +63,68 @@ the conditonal of a constexpr if staemnt will be evaluated at complie time.
   In the examples above, the variable count is a counter.
 - Integral loop variables should generally be a signed integral type.
 - Often, we want to do something every 2nd, 3rd, or 4th iteration, such as print a newline. This can easily be done by using the remainder operator on our counter:
-- 
+
+8.9 Do while statements
+- Since a while loop evaluates the condition up front, it’s an awkward choice. We could solve the issue like this:
+- We could instead add a new variable to track validity, like so:
+- it introduces a new variable just to ensure the loop runs once, and that adds complexity and the possibility of additional errors.
+- A do while statement is a looping construct that works just like a while loop, except the statement always executes at least once.
+- One thing worth discussing in the above example is that the selection variable must be declared outside of the do block. 
+  If the selection variable were to be declared inside the do block, it would be destroyed when the do block terminates.
+- Favor while loops over do-while when given an equal choice.
+
+8.10 For statements
+- The for statement (also called a for loop) is preferred when we have an obvious loop variable because it lets us easily and concisely define, 
+  initialize, test, and change the value of loop variables.
+- Avoid operator!= when doing numeric comparisons in the for-loop condition. Prefer operator< or operator<= where possible.
+-  Off-by-one errors occur when the loop iterates one too many or one too few times to produce the desired result.
+- for (;;)           // it is a infinite loop
+    statement;
+- Defining multiple variables (in the init-statement) and using the comma operator (in the end-expression) is acceptable inside a for-statement.
+- Variables used only inside a loop should be defined inside the scope of the loop.
+- Prefer for-loops over while-loops when there is an obvious loop variable and Prefer while-loops over for-loops when there is no obvious loop variable.
+
+8.11 Break and continue
+- In the context of a loop, a break statement can be used to end the loop early. Execution continues with the next statement after the end of the loop.
+- . A break statement terminates the switch or loop, and execution continues at the first statement beyond the switch or loop. 
+    A return statement terminates the entire function that the loop is within, and execution continues at point where the function was called.
+- The continue statement provides a convenient way to end the current iteration of a loop without terminating the entire loop.
+- In the case of a for-loop, the end-statement of the for-loop (in the above example, ++count) 
+   still executes after a continue (since this happens after the end of the loop body).
+- Use break and continue when they simplify your loop logic.
+- Use early returns when they simplify your function’s logic.
+
+8.12 Halts (exiting your program early)
+
+- A halt is a flow control statement that terminates the program. In C++, halts are implemented as functions (rather than keywords), so our halt statements will be function calls.
+- Next, a special function called std::exit() is called, with the return value from main() (the status code) passed in as an argument. 
+- std::exit() performs a number of cleanup functions. First, objects with static storage duration are destroyed. Then some other miscellaneous file cleanup is done if any files were used. 
+- Finally,Although std::exit() is called implicitly after function main() returns, std::exit() can also be called explicitly to halt the program before it would normally terminate. 
+    When std::exit() is called this way, you will need to include the cstdlib header. control is returned back to the OS, with the argument passed to std::exit() used as the status code.
+- std::exit() does not clean up local variables
+- To assist with this, C++ offers the std::atexit() function, 
+  which allows you to specify a function that will automatically be called on program termination via std::exit().
+- In multi-threaded programs, calling std::exit() can cause your program to crash 
+  (because the thread calling std::exit() will cleanup static objects that may still be accessed by other threads). 
+  For this reason, C++ has introduced another pair of functions that work similarly to std::exit() and std::atexit() 
+  called std::quick_exit() and std::at_quick_exit(). std::quick_exit() terminates the program normally, but does not clean up static objects, 
+  and may or may not do other types of cleanup. std::at_quick_exit() performs the same role as std::atexit() 
+  for programs terminated with std::quick_exit().
+- The std::abort() function causes your program to terminate abnormally. Abnormal termination means the program had some kind of unusual runtime error an
+- The std::terminate() function is typically used in conjunction with exceptions (we’ll cover exceptions in a later chapter).
+   Although std::terminate can be called explicitly, 
+  it is more often called implicitly when an exception isn’t handled (and in a few other exception-related cases). By default, std::terminate() calls std::abort().
+
+- Only use a halt if there is no safe or reasonable way to return normally from the main function. 
+  If you haven’t disabled exceptions, prefer using exceptions for handling errors safely.
+
+
+
+
+
+
+
+
 
 
 

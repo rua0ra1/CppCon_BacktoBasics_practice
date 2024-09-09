@@ -86,21 +86,59 @@ void example4(){
     printCats(false); // prints "cats"
 
 }
- */
+ 
 
-void example4(){
-    int x=5;
-    goto skip;
-skip:
-     x+=3;
+// void example4(){
+//     int x=5;
+//     goto skip;
+// skip:
+//      x+=3;
+// }
+
+*/
+
+// example 5 
+/* void example5(){
+
+ for (int count{ 0 }; count < 10; ++count)
+    {
+        // if the number is divisible by 4, skip this iteration
+        if ((count % 4) == 0)
+            continue; // go to next iteration
+
+        // If the number is not divisible by 4, keep going
+        std::cout << count << '\n';
+
+        // The continue statement jumps to here
+    }
+} */
+
+// example 6
+
+
+void cleanup()
+{
+    // code here to do any kind of cleanup required
+    std::cout << "cleanup!\n";
 }
 
+void example6()
+{
+    std::cout << 1 << '\n';
+    cleanup();
+
+    std::exit(0); // terminate and return status code 0 to operating system
+
+    // The following statements never execute
+    std::cout << 2 << '\n';
+
+}
 
 
 
 
 int main(){
 
-    example4();
+   example5();
     
 }
