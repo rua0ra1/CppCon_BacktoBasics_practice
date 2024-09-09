@@ -44,6 +44,29 @@ the conditonal of a constexpr if staemnt will be evaluated at complie time.
 - You can declare or define (but not initialize) variables inside the switch, both before and after the case labels:
 - If defining variables used in a case statement, do so in a block inside the case.
 
+8.7 Goto statements
+- In C++, unconditional jumps are implemented via a goto statement, and the spot to is identified through use of statement label. 
+  Just like switch case labels, statement labels are conventionally not indented
+- statement labels have function scope. function scope, which means label is visible throughout the function even before its point of declaration.
+  the goto statement and its corresponding statement label must appear in the same function.
+- This creates what is not-so-affectionately known as spaghetti code. Spaghetti code is code that has a path of execution that resembles a bowl of spaghetti 
+- avoid goto statements
+- Avoid goto statements (unless the alternatives are significantly worse for code readability).
+
+8.8 Introduction to loops and while statements
+- A while statement is declared using the while keyword. When a while-statement is executed, 
+  the expression condition is evaluated. If the condition evaluates to true, the associated statement executes.
+- The only way to exit an infinite loop is through a return-statement, a break-statement, an exit-statement, a goto-statement, an exception being thrown, or the user killing the program
+- Favor while(true) for intentional infinite loops.
+- The use of i, j, and k for loop variable names arose because these are the first three shortest names for integral variables in the Fortran programming language
+- The most common type of loop variable is called a counter, which is a loop variable that counts how many times a loop has executed. 
+  In the examples above, the variable count is a counter.
+- Integral loop variables should generally be a signed integral type.
+- Often, we want to do something every 2nd, 3rd, or 4th iteration, such as print a newline. This can easily be done by using the remainder operator on our counter:
+- 
+
+
+
 
 
 

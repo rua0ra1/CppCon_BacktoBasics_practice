@@ -2,31 +2,31 @@
 
 // example 1
 
-void example1(){
-    constexpr double gravity {9.8};
-    if constexpr (gravity == 9.8) // now using constexpr if
-		std::cout << "Gravity is normal.\n";
-	else
-		std::cout << "We are not on Earth.\n";
+// void example1(){
+//     constexpr double gravity {9.8};
+//     if constexpr (gravity == 9.8) // now using constexpr if
+// 		std::cout << "Gravity is normal.\n";
+// 	else
+// 		std::cout << "We are not on Earth.\n";
 
-}
+// }
 
 //example 2
 
-void printDigitName(int x){
-     if (x == 1)
-        std::cout << "One";
-    else if (x == 2)
-        std::cout << "Two";
-    else if (x == 3)
-        std::cout << "Three";
-    else
-        std::cout << "Unknown";
-}
+// void printDigitName(int x){
+//      if (x == 1)
+//         std::cout << "One";
+//     else if (x == 2)
+//         std::cout << "Two";
+//     else if (x == 3)
+//         std::cout << "Three";
+//     else
+//         std::cout << "Unknown";
+// }
 
-void example2(){
-   printDigitName(2);
-}
+// void example2(){
+//    printDigitName(2);
+// }
 
 //example 3 sequential case labels
 /* 
@@ -53,7 +53,54 @@ bool isVowel(char c)
     }
 
  */
+// example 4 goto statements try again
+/*
+#include<cmath>
+void example4(){
+    double x{};
+tryAgain:
+    std::cout<<"Enter the non negative number:";
+    std::cin>>x;
+
+    if(x<0.0)
+       goto tryAgain; // this is the go to staments
+
+    std::cout << "The square root of " << x << " is " << std::sqrt(x) << '\n';
+
+}
+
+goto statement can also jump forward
+
+ void printCats(bool skip)
+{
+    if (skip)
+        goto end; // jump forward; statement label 'end' is visible here due to it having function scope
+
+    std::cout << "cats\n";
+end:
+    ; // statement labels must be associated with a statement
+}
+
+void example4(){
+    printCats(true);  // jumps over the print statement and doesn't print anything
+    printCats(false); // prints "cats"
+
+}
+ */
+
+void example4(){
+    int x=5;
+    goto skip;
+skip:
+     x+=3;
+}
+
+
+
+
 
 int main(){
+
+    example4();
     
 }
