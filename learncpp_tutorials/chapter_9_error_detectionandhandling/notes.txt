@@ -1,0 +1,59 @@
+9.1 Introduction to testing your code
+- Software testing (also called software validation) is the process of determining whether or not the software actually works as expected.
+- Write your program in small, well defined units (functions or classes), compile often, and test your code as you go.
+- A better method is to use assert, which will cause the program to abort with an error message if any test fails. We don’t have to create and handle test case numbers this way.
+- unit testing and integrating testing wit
+
+
+9.2 code coverage 
+- the term code coverage is used to describe how much of the source code of a program is executed while testing. there are many different metrics used for code coverage.
+- The term statement coverage refers to the percentage of statements in your code that have been exercised by your testing routines.
+- Branch coverage refers to the percentage of branches that have been executed, each possible branch counted separately.
+- Aim for 100% branch coverage of your code.
+- Use the 0, 1, 2 test to ensure your loops work correctly with different number of iterations.
+- Test different categories of input values to make sure your unit handles them properly.
+
+
+9.3 common semanic errors in C++
+- syntax error - issue with c++ grammar, and semantic - issue with logic
+- commom semantic errors are as follows
+- Conditional logic errors -> A Conditional logic error occurs when the programmer incorreclty code the logic of a conditional statement or loop conditional
+- Infinite loops, off by one errors, Incorrect operator precedence
+- Precision issues with floating point types, Integer Division and Accidental null statements
+- The assignment operator returns its left operand. c = 'y' executes first, which assigns y to c and returns c. Then if (c) is evaluated. Since c is now non-zero,
+
+9.4 detecing and handling errors
+- There are three key places where assumptions errors typically occur:
+    1) When a function returns,the programmer may have assumed that the called function when it was not.
+    2) When a program receives input the programmer may have assumed the input was in the correct format and smentically validation
+    3) when a function has been called, the programmer may have assumed the arguments would be semantically valid when they were not.
+- Handling errors in functions  and 4 general strategies that can be used
+ 1) Handle the error within the function
+ 2) Pass the error back to the caller to deal with
+ 3) Halt the program
+ 4) Throw an exception
+
+ - Handle the error within the functions
+  1) If possible, the best strategy is to recover from the error in the same function in which the error occured, so that the error can be contained and corrected without
+     imapacting any code outside the function, there are two options here: retry untill successful and cancel the operation being executed
+- A sentinel value is a value that has some special meaning in the context of a function or algorithm. In our reciprocal() function above, 
+  0.0 is a sentinel value indicating that the function failed
+- 
+- Fatal errors:
+ 1) If the error is so bad that the program can not continue to operate properly, this is called a non-recoverable error (also called a fatal error)
+ 2) In main use returne (-1), in nested function you can't recover use std::exit
+- Exceptions
+ 1) Because returning an error from a function back to the caller is complicated, c++ offers an entirely sepeate way to pass errors back to the caller :Exceptions
+ 2) error occurs exceptions is thrown. it will propogate to all the caller functions until it caught and handled or until main() fails to handle the error 
+- when to use std::cout vs std::cerr and logging
+ 1) interactive applications are those that the user will interact wil after running. Most standalone applications,like games and music applications
+ 2) Non interactive applications 1) Tools -grep 2) Services - run silently on background ( virus scanner)
+- For an interactive applications :-  use std::cout for normal user-facing error messages (e.g. “Your input was invalid”). 
+  Use std::cerr or a logfile for status and diagnostic information that may be helpful for diagnosing issue
+- For a non-interactive program (tool or service), use std::cerr for error output only (e.g. could not open file x). 
+  This allows errors to be displayed or parsed separately from normal output
+- For any application type that is transactional in nature (e.g. one that processes specific events, such as an interactive web browser or non-interactive web server), use a logfile to produce a 
+  transactional log of events that can be reviewed later. This can include outputting to the logfile which file is being processe
+  
+
+ 
