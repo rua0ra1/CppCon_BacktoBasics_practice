@@ -1,0 +1,21 @@
+10.1 Implict type conversion
+- the process of producing a new value of some type from a value of different type is called a conversion
+- Type conversions can be invoked in one of two ways: either implicit or explicit.
+- brace-initialization disallows conversions that result in data loss
+
+10.2 Floating point and integral promotion
+- The number of bits a data type uses is called its width. A wider data type is one that uses more bits, and a narrower data type is one that uses less bits.
+- Numeric promotions is the type conversion of certain narrower numeric types (such as char) to certain wider numeric types that can be processed efficiently
+- All numeric promotions are value preserving. A value preserving conversion is one where every possbile source value can be 
+  converted into and equal value of the destination type
+- The numeric promotions rules are divided into two subcategories. integral promotions and floating point promotions. 
+  Only the conversions listed in these categories are considered to be numeric promotions
+
+10.3 Numeric conversions
+- Any type conversion covered by the numeric promotion is called a numeric promotion, not a numeric conversion
+- There are 5 basics types of numeric conversions
+    1) converting an integral type to any other integral type
+    2) Converting a floating point type to any other floating point type
+    3) converting a floating point type to any integral type
+    4) converting a integral type to any floating point type
+    5) Converting an integral type or a floating point type to a bool
