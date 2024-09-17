@@ -1,0 +1,9 @@
+12.1 introduction to compound data types
+- Fortunately, C++ supports a second set of data types called compound data types. Compound data types are data types that can be constructed from fundamental 
+  data types.
+- the type of this function is void(int,double). Note that this type is composed of fundamental types, making it a compound type. of course, functions also have their own special 
+behaviours as well (being callable)
+
+12.2 Value categories (lvalues and rvalues)
+- we defined an expression as “a combination of literals, variables, operators, and function calls that can be executed to produce a singular value”.
+- 
