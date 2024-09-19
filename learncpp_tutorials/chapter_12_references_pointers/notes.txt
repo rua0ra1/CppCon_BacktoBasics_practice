@@ -61,7 +61,56 @@ behaviours as well (being callable)
 - Const references bound to temporary objects extend the lifetime of the temporary object
 - Lvalue references can only bind to modifiable lvalues.
 - Lvalue references to const can bind to modifiable lvalues, non-modifiable lvalues, and rvalues. This makes them a much more flexible type of reference.
-- 
+- Lifetime extension only works when a const reference is directly bound to a temporary. Temporaries returned from a function (even ones returned by const reference) are not
+  eligible for lifetime extensions
+- Constexpr lvalue references (optional)
+  1) When applied to a reference, constexpr allows the reference to be used in constant expression.
+  2) constexpr reference cannot bind to a local variable. This is because the address the local variables is not known until the funciton they are defined within is actually called
+
+
+  12.5 pass by lvalue reference
+-  some objects are expensive to copy. most of the types provided by the standard library (such as std::string) are class types. 
+-  wheever possible, we want to avoid making unnecessary copies that are expensive to copy, especially when we will destroy those copies almost immediately
+- Pass by reference allows us to pass arguments to a function without making copies of those arguments each time the function is called.
+- Passing values by reference to non-const allows us to write functions that modify the value of arguments passed in.
+- Favor passing by const reference over passing by non-const reference unless you have a specific reason to do otherwise (e.g. the function needs to change the value of an argument).
+- As a rule of thumb, pass fundamental types by value, and class (or struct) types by const reference.
+  Other common types to pass by value: enumerated types and std::string_view.
+  Other common types to pass by (const) reference: std::string, std::array, and std::vector.
+- Prefer pass by value for objects that are cheap to copy, and pass by const reference for objects that are expensive to copy. 
+  If you’re not sure whether an object is cheap or expensive to copy, favor pass by const reference.
+- Prefer passing strings using std::string_view (by value) instead of const std::string&, 
+  unless your function calls other functions that require C-style strings or std::string parameters.
+
+12.7 introduction to pointers
+- When declaring a pointer type, place the asterisk next to the type name.
+- Like normal variables, pointers are not initialized by default. A pointer that has not been initialized is sometimes called a wild pointer. 
+-  integer pointer it literally means pointer to the integer
+- Thus, pointers and references both provide a way to indirectly access another object. The primary difference is that with pointers, we need to explicitly get the address to point at, 
+  and we have to explicitly dereference the pointer to get the value. With references, the address-of and dereference happens implicitly.
+- References can not be reseated (changed to reference something else), pointers can change what they are pointing at.
+- Much like a dangling reference, a dangling pointer is a pointer that is holding the address of an object that is no longer valid (e.g. because it has been destroyed).
+
+12.8 Null pointers
+- Besides a memory address, there is one additional value that a pointer can hold: a null value. A null value (often shortened to null) is a special value that means something has no value. 
+  When a pointer is holding a null value, it means the pointer is not pointing at anything. Such a pointer is called a null pointer.
+- Value initialize your pointers (to be null pointers) if you are not initializing them with the address of a valid object.
+- Use nullptr when you need a null pointer literal for initialization, assignment, or passing a null pointer to a function.
+- Dereferencing a null pointer results in undefined behavior
+- Conditionals can only be used to differentiate null pointers from non-null pointers. There is no convenient way to determine whether a non-null pointer is pointing to a valid object or dangling (pointing to an invalid object).
+- A pointer should either hold the address of a valid object, or be set to nullptr. That way we only need to test pointers for null, and can assume any non-null pointer is valid.
+- Favor references over pointers whenever possible
+- Favor references over pointers unless the additional capabilities provided by pointers are needed.
+
+
+
+
+
+
+
+  
+
+
 
 
 

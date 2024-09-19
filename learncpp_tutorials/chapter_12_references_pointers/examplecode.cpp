@@ -42,7 +42,38 @@ void example3(){
     std::cout<< " value "<<x<<" ref"<< ref<<'\n';
 }
 
-int main(){
-    example3();
+/* example 4 */
+// int g_x{5};
 
+// int example4(){
+//         [[maybe_unused]] constexpr int& ref1 { g_x }; // ok, can bind to global
+
+//     static int s_x { 6 };
+//     [[maybe_unused]] constexpr int& ref2 { s_x }; // ok, can bind to static local
+
+//     int x { 6 };
+//    // [[maybe_unused]] constexpr int& ref3 { x }; // compile error: can't bind to non-static object
+//    static const int s_x { 6 }; // a const int
+//    [[maybe_unused]] constexpr const int& ref2 { s_x }; // needs both constexpr and const
+
+// }
+
+/* example 5 */
+
+void foo(int a, int& b, const std::string& c){
+
+    std::cout<<" foo is called "<<'\n';
+
+}
+
+void example5(){
+    int x { 5 };
+    const std::string s { "Hello, world!" };
+
+    foo(5, x, s);
+}
+
+
+int main(){
+    example5();
 }
