@@ -102,6 +102,50 @@ behaviours as well (being callable)
 - Favor references over pointers whenever possible
 - Favor references over pointers unless the additional capabilities provided by pointers are needed.
 
+12.9 Pointers and const
+- A pointer to const value is a pointer that points to a constant value
+-  pointer to const value , const pointer and const pointer to const value
+
+12.10
+- Pass by address does not make a copy of the object being pointed to
+- Thus, just like pass by reference, pass by address is fast, and avoids making a copy of the argument object.
+- In most cases, it is more effective to do the opposite: test whether the function parameter is null as a precondition
+   (9.6 -- Assert and static_assert) and handle the negative case immediately
+- Pass by const reference has a few other advantages over pass by address.
+- First, because an object being passed by address must have an address, only lvalues can be passed by address 
+  (as rvalues don’t have addresses). Pass by const reference is more flexible, as it can accept lvalues and rvalues
+- Prefer pass by reference to pass by address unless you have a specific reason to use pass by address. *********************
+
+12.11 Pass by address
+- Pass by address for “optional” arguments
+- Changing what a pointer parameter points at. it can be done by pass by address by reference
+- using reference to a pointer
+
+12.12 Return by refernce and return by address
+- return by reference
+- return by referrence returns a refrence that is bound to the object returned, which avoids making a copy of the return value.
+- To return by reference, we simply define the return value of the function to be a reference type
+- the object beign returned by reference must exit after the function returns
+- Reference lifetime extension does not work across function boundaries.
+- Don’t return non-const static local variables by reference
+- Avoid returning references to non-const local static variables.
+- If a function returns a reference, and that reference is used to initialize or assign to a non-reference variable, 
+  the return value will be copied (as if it had been returned by value).
+- It’s okay to return reference parameters by reference
+- It’s okay to return by const reference an rvalue passed by const reference
+- Prefer return by reference over return by address unless the ability to return “no object” (using nullptr) is important.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

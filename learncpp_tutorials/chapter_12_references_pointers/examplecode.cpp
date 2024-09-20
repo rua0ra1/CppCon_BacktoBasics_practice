@@ -1,4 +1,6 @@
 #include<iostream>
+#include<string>
+#include <string_view>
 
 /* example 1 */
 int return5()
@@ -73,7 +75,67 @@ void example5(){
     foo(5, x, s);
 }
 
+// /* pointer to cont */
+// void example6(){
+//     const int x{5};
+//     const int * ptr {&x};
+//     // *ptr=10; we can change the value of the address it pointing to
+//     const int y{6};
+//     ptr=&y;
+// }
+
+// /*  const pointers */
+// void example7(){
+//     const int x{5};
+//     int* const ptr {&x}; // const after the asterisk means that is a const pointer
+//     int y{5};
+// }
+
+// const pointer to const value
+void example6(){
+    int value { 5 };
+    const int* const ptr { &value }; // a const pointer to a const value
+}
+
+
+/* dont return non const static local variables by reference */
+// const int& getNextId()
+// {
+//     static int s_x{ 0 }; // note: variable is non-const
+//     ++s_x; // generate the next id
+//     return s_x; // and return a reference to it
+// }
+
+// int example7()
+// {
+//     const int& id1 { getNextId() }; // id1 is a reference
+//     const int& id2 { getNextId() }; // id2 is a reference
+
+//     std::cout << id1 <<"  "<<id2 << '\n';
+
+//     return 0;
+// }
+
+std::string& getName()
+{
+    static std::string s_name{};
+    std::cout << "Enter a name: ";
+    std::cin >> s_name;
+    return s_name;
+}
+
+void printFirstAlphabetical(std::string_view s1, std::string_view s2)
+{
+    if (s1 < s2)
+        std::cout << s1 << " comes before " << s2 << '\n';
+    else
+        std::cout << s2 << " comes before " << s1 << '\n';
+}
+
+
+
+
 
 int main(){
-    example5();
+    printFirstAlphabetical(getName(),getName());
 }
