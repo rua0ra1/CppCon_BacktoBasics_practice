@@ -1,6 +1,11 @@
 #include<iostream>
-#include<string>
-#include <string_view>
+#include <typeinfo>
+#include<type_traits>
+#include<optional>
+#include <string>
+#include <fstream>
+
+
 
 /* example 1 */
 int return5()
@@ -20,6 +25,7 @@ void example1(){
 /* You may be wondering why return5(), x + 1, and static_cast<int>(d) are rvalues: the answer is because these expressions produce temporary values that are not identifiable objects. */
 
 }
+
 
 /* example 2 */
 void exmaple2(){
@@ -116,26 +122,51 @@ void example6(){
 //     return 0;
 // }
 
-std::string& getName()
-{
-    static std::string s_name{};
-    std::cout << "Enter a name: ";
-    std::cin >> s_name;
-    return s_name;
+// std::string& getName()
+// {
+//     static std::string s_name{};
+//     std::cout << "Enter a name: ";
+//     std::cin >> s_name;
+//     return s_name;
+// }
+
+// void printFirstAlphabetical(std::string_view s1, std::string_view s2)
+// {
+//     if (s1 < s2)
+//         std::cout << s1 << " comes before " << s2 << '\n';
+//     else
+//         std::cout << s2 << " comes before " << s1 << '\n';
+// }
+/* exmaple 8 */
+// A top level const is a const qualifier that applies to an object itself.#include <typeinfo>
+
+/* 
+const int x;    // this const applies to x, so it is top-level
+int* const ptr; // this const applies to ptr, so it is top-level
+*/
+/* 
+const int& ref; // this const applies to the object being referenced, so it is low-level
+const int* ptr; // this const applies to the object being pointed to, so it is low-level
+ */
+/* 
+const int* const ptr; // the left const is low-level, the right const is top-level
+*/
+
+// In contrast, a lowel level const is const qualifer that  applies to the oject beign referenced or pointed to
+std::string ReadStringFromFile(const std::string& filepath){
+    std::ifstream streamm(filepath);
+    if (streamm){
+         std::string result;
+        //read file 
+        streamm.close();
+       
+        return result;
+    }
+    return std::string();
+
 }
-
-void printFirstAlphabetical(std::string_view s1, std::string_view s2)
-{
-    if (s1 < s2)
-        std::cout << s1 << " comes before " << s2 << '\n';
-    else
-        std::cout << s2 << " comes before " << s1 << '\n';
-}
-
-
-
-
 
 int main(){
-    printFirstAlphabetical(getName(),getName());
+    return 0;
+   
 }

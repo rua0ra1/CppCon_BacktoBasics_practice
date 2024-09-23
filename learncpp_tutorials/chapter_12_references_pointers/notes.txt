@@ -135,6 +135,39 @@ behaviours as well (being callable)
 - It’s okay to return by const reference an rvalue passed by const reference
 - Prefer return by reference over return by address unless the ability to return “no object” (using nullptr) is important.
 
+12.13 In and Out parameters
+- Typically, we’ll pass arguments by value or by const reference. But there are times when we may need to do otherwise.
+- In most cases, a function parameter is used only to receive an input from the caller. Parameters that are used only for 
+  receiving input from the caller are sometimes called in parameters.
+- In-parameters are typically passed by value or by const reference.
+- A function argument passed by (non-const) reference (or by address) allows the function to modify the value of an object passed as an argument. 
+  This provides a way for a  function to return data back to the caller in cases where using a return value is not sufficient for some reason.
+- A function parameter that is used only for the purpose of returning information back to the caller is called an out parameter.
+- Avoid out-parameters (except in the rare case where no better options exist). **********
+   Prefer pass by reference for non-optional out-parameters.
+
+12.14 type deduction with pointers, reference and const
+- auto keyword can be used to have the compiler deduce the type of a variable from the initializer
+- We also noted that by default, type deduction will drop const from types
+- Const (or constexpr) can be applied by adding the const (or constexpr) qualifier in the definition:
+- In addition to dropping const, type deduction will also drop references:
+- Top-level const and low-level const
+- When we say that type deduction drops const qualifiers, it only drops top-level consts. Low-level consts are not dropped. We’ll see examples of this in just a moment.
+- If you want a const reference, reapply the const qualifier even when it’s not strictly necessary, as it makes your intent clear and helps prevent mistakes.
+- Constexpr is not part of an expression’s type, so it is not deduced by auto.
+- Dropping a reference may change a low-level const to a top-level const: const std::string& is a low-level const, but dropping the reference yields const std::string, 
+  which is a top-level const.
+
+12.15 std::optional
+- Return a std::optional (instead of a sentinel value) for functions that may fail, unless your function needs to return additional information about why it failed.
+-
+
+
+
+
+
+
+
 
 
 
