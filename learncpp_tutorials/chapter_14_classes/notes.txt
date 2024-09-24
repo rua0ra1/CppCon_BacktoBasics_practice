@@ -1,0 +1,70 @@
+14.1 Introduction to object oriented programming
+- In prodedural programming, the functions and the data those functions operate on are separate entities. 
+  The programmer is responsible for combining the functions and the data together to produce the desired result. 
+- every object has some associated property and some number of behavious that they can exhibit
+- properties are represented by objects and  behaviours are represented by functions
+- In object oriented programming,the focus is on creating program defined data types that contain both properties  
+  and a set of well defined behaviours.
+- These objects also provide a more intuitive way to work with our data by allowing us to define how we interact with the objects 
+  and how they interact with other objects
+- Language designers have a philosophy: never use a small word where a big one will do.
+
+14.2 Introduction to classes
+- the class invariant problem, the biggest difficulty with structs is that they do not provide an effective way to 
+  document and enforce class invariants
+- Using an object whose class invariant has been violated may result in unexpected or undefined behavior.
+- Relying on the user of an object to maintain class invariants is likely to result in problems.
+- the object that a member function is called on is implicitly passed to the member function.
+- the object that a member function is called on is often the implicit object
+- With non-member functions, we have to explicitly pass an object to the function to work with, and members are explicitly accessed through that object.
+- With member functions, we implicitly pass an object to the function to work with, and members are implicitly accessed through that object.
+- member varibles and functions can be defined in any order
+- For this reason, it’s generally a good idea to avoid using other members inside default member initializers.
+- . A class type with a constructor is no longer an aggregate, and we want our structs to remain aggregates.
+- Member functions can be used with both structs and classes.
+  However, structs should avoid defining constructor member functions, as doing so makes them a non-aggregate.
+- If your class type has no data members, prefer using a namespace.
+
+14.4 Const class objects and const member functions
+- class type objects (struct,class and unions) can also be made const using the const keyword. such objects must also be intialized
+  at the time of creation
+- Modifying the data members of const objects is disallowed
+- const objects may not call non const member functions
+- const member functions is a member function that gaurantees it will not modify the object or 
+  call any non const member functions (as they may modify the object)
+- A member function that does not (and will not ever) modify the state of the object should be made const, so that it can be called on both const and non-const objects.
+- member functions const and non const overloading (as const is part of the funtion signature). two functions which differ only in their const-ness are considered
+ distinct.
+
+14.5 public and private member and access specifiers
+- when a member is accessed, the compiler checks whether the access level of the member permits that member to be accessed. 
+  if the access is not permitted, the compiler will generate a compilation error. this access level system is sometimes informally called access controls
+- The members of a class are private by default
+- The members of a class are private by default. Private members can be accessed by other members of the class, but can not be accessed by the public.
+- A class with private members is no longer an aggregate, and therefore can no longer use aggregate initialization.
+- This is the same reason we recommend using “s_” prefixes for local static variables, and “g_” prefixes for globals.
+- Consider naming your private data members starting with an “m_” prefix to help distinguish them from the names of local variables, function parameters, and member functions.
+- Structs should avoid access specifiers altogether, meaning all struct members will be public by default. We want our structs to be aggregates, 
+  and aggregates can only have public members. 
+- Classes should generally make member variables private (or protected), and member functions public.
+- Structs should generally avoid using access specifiers (all members will default to public).
+- Access levels work on a per class basis
+- o be pedantic, there’s one more minor difference -- structs inherit from other class types publicly and classes inherit privately.
+- We want our structs to be aggregates. So if you use any capabilities that makes your struct a non-aggregate, 
+  you should probably be using a class instead (and following all of the best practices for classes).
+
+14.6 Access functions
+- One of the best reasons to prefix private data members with “m_” is to avoid having data members and getters with the same name
+14.7 member functions returning references to data memebers
+- A member function returning a reference should return a reference of the same type as the data member being returned, to avoid unnecessary conversions.
+- We cover auto return types in lesson 10.9 
+- 
+
+
+
+
+
+
+
+
+
