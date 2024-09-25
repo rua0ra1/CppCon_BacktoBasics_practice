@@ -58,7 +58,69 @@
 14.7 member functions returning references to data memebers
 - A member function returning a reference should return a reference of the same type as the data member being returned, to avoid unnecessary conversions.
 - We cover auto return types in lesson 10.9 
+- For this reason, we’ll generally prefer explicit return types.
+- But what if we want to save a value from a function that returns a member by reference for use later? Instead of using the returned reference to initialize a local reference variable, 
+  we can instead use the returned reference to initialize a non-reference local variable.
+- Prefer to use the return value of a member function that returns by reference immediately, to avoid issues with dangling references when the implicit object is an rvalue.
+- Do not return non const references to private data members. This allows the caller to subvert the access control system.
+- Const member functions can’t return non-const references to data members
+
+14.8 the benefits of data hiding (encapsulation)
+- the separation of interface and implmentation is extremely useful because it allows us to use objects without 
+  having to understand how they work.
+- The interface od a class type defines how a user of the class type will interact with objects of the class type.
+- an inteface of composed of the public members is sometimes called a public interface'
+- the implementaion of a class type consists of the code that actually makes the class behave as intended. thos includes
+  both the member variables that store data, and the bodies of the member functions that contains the program logic and manipulate 
+  the member functions
+- data hiding is a technique used to enforce the separation of interface and implementaiton by hiding the implementation
+  of a program defined data type from users
+- Structs, on the other hand, should not use data hiding, as having non-public members prevents them from being treated as aggregates.
+- To use an encapsulated class, you don’t need to know how it is implemented. You only need to understand its interface: 
+  what member functions are publicly available, what arguments they take, and what values they return.
+- Data hiding allows us to maintain invariants
+- When we give users direct access to the implementation of a class, they become responsible for maintaining all invariants -- 
+  which they may not do (either correctly, or at all). Putting this burden on the user adds a lot of complexity.
+- Data hiding allows us to do better error detection (and handling)
+- how to handle the errors
+  Ignore the request to set the name to “” and return to the caller.
+  Assert out.
+  Throw an exception.
+- In C++, if a function can be implemented as a non-member function, consider implementing it as a non-member function instead of as a member function.
+- Prefer implementing functions as non-members when possible (especially functions that contain application specific data or logic).
+- When writing code outside of a class, we are required to declare variables and functions before we can use them. However, 
+  inside a class, this limitation does not exist. As noted in lesson 14.3 -- Member functions, we can order our members in any order we like.
+- Declare public members first, protected members next, and private members last. 
+  This spotlights the public interface and de-emphasizes implementation details
+
+
+14.9 Introduction to constructors
+- A constructor is a special member function that is automatically called after a non-aggregate class type object is created
+- Constructor implicit conversion of arguments
+- Constructors should not be const
+- Normally a non-const member function can’t be invoked on a const object. 
+  However, because the constructor is invoked implicitly, a non-const constructor can be invoked on a const object.
+
+14.10 Constructor member initializer lists
+- Member initialization via a member initialization list
+- Because the C++ standard says so, the members in a member initializer list are always initialized in the order in which they are defined inside the class 
+  (not in the order they are defined in the member initializer list).
+-Member variables in a member initializer list should be listed in order that they are defined in the class. **********************************
+- Member initializer list vs default member initializers *********
+- The bodies of constructors functions are most often left empty. This is because we primarily use constructor for initialization, 
+  which is done via the member initializer list
 - 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
