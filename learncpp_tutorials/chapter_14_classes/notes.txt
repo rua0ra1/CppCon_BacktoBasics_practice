@@ -109,7 +109,86 @@
 - Member initializer list vs default member initializers *********
 - The bodies of constructors functions are most often left empty. This is because we primarily use constructor for initialization, 
   which is done via the member initializer list
+
+14.11 Default constructors and default arguments
+- However, as we already covered in lesson 13.9 -- Default member initialization, value initialization is safer for aggregates. 
+  Since it’s difficult to tell whether a class type is an aggregate or non-aggregate,
+  it’s safer to just use value initialization for everything and not worry about it.
+- Prefer value initialization over default initialization for all class types.
+- constructor with default arguments
+- If all of the parameters in a constructor have default arguments, 
+ the constructor is a default constructor (because it can be called with no arguments).
+- if a non aggreate class type has no user declared costructors, the compiler willl generate 
+  a public default constructor is called implicit default constructor
+-  explicitly defaulted default constructor
+- Prefer an explicitly defaulted default constructor (= default) over a default constructor with an empty body. ************
 - 
+
+14.12 Delegating Constructors
+- Constructors are allowed to call other functions, including other member functions of the class. So we could refactor like this:
+- Constructors should not be called directly from the body of another function. Doing so will either result in a compilation error, 
+  or will value initialize a temporary object and then discard it (which likely isn’t what you want).
+- Constructors are allowed to delegate (transfer responsibility for) initialization to another constructor from the same class type. 
+  This process is sometimes called constructor chaining and such constructors are called delegating constructors.
+- A few additional notes about delegating constructors. First, a constructor that delegates to another constructor is not allowed to do any member initialization itself.
+  So your constructors can delegate or initialize, but not both.
+- If you have multiple constructors, consider whether you can use delegating constructors to reduce duplicate code.
+
+14.13 temporary class objects
+- We’ll use a class here, but everything in this lesson is equally applicable to structs that are initialized using aggregate initialization.
+- A temporary object (sometimes called an anonymous object or an unnamed object) is an object that has no name and exists only for the duration of a single expression.
+- IntPair p { 1, 2 }; // create named object p initialized with value { 1, 2 }
+  IntPair { 1, 2 };   // create temporary object initialized with value { 1, 2 }
+  { 1, 2 };           // compiler will try to convert value { 1, 2 } to temporary object
+
+14.14 Introduction to copy constructor
+- A copy constructor is a constructor that is used to initialize an object with an existing object of the same type. After the copy constructor 
+  executes, the newly created object should be a copy of the object passed in as the initializer.
+- If user dont defined copy construcor, an implicit copy constructor is evoked
+- Access controls work on a per-class basis (not a per-object basis). This means the member functions of a class can access the 
+  private members of any class object of the same type (not just the implicit object).
+- Copy constructors should have no side effects beyond copying.
+- Prefer the implicit copy constructor, unless you have a specific reason to create your own.
+- If you write your own copy constructor, the parameter should be a const lvalue reference.
+- Using = default to generate a default copy constructor
+- Using = delete to prevent copies
+- The rule of three is a well known C++ principle that states that if a class requires a user-defined copy constructor, 
+  destructor, or copy assignment operator, then it probably requires all three. In C++11, this was expanded to the rule of five,  
+  which adds the move constructor and move assignment operator to the list.
+
+14.15 class initialization and copy elision
+- There are three key differences between the initialization forms:
+-   List initialization disallows narrowing conversions.
+    Copy initialization only considers non-explicit constructors/conversion functions. 
+    We’ll cover this in lesson 14.16 -- Converting constructors and the explicit keyword.
+    List initialization prioritizes matching list constructors over other matching constructors. 
+    We’ll cover this in lesson 16.2 -- Introduction to std::vector and list constructors.
+- Copy elision is a compiler optimization technique that allows the compiler to remove unnecessary copying of objects.
+
+
+14.16 converting constructors and the explicit keyword
+- Instead, the compiler will look to see if we have defined some function that it can use to perform such a conversion. Such a function is called a user-defined conversion.
+- In C++17 onward, the copy is mandatorily elided. Parameter f is copy initialized with value 5, and no call to the copy constructor is required
+- A constructor that can be used to perform an implicit conversion is called a converting constructor. 
+   By default, all constructors are converting constructors.
+- An implicit conversion can be trivially converted into an explicit definition by using direct list initialization (or direct initialization).
+- Best practices for use of explicit
+- Copy (and move) constructors (as these do not perform conversions).
+- The following are typically not made explicit:
+   - Default constructors with no parameters (as these are only used to convert {} to a default object, 
+     not something we typically need to restrict)
+   - Constructors that only accept multiple arguments (as these are typically not a candidate for conversions anyway).
+- Make any constructor that accepts a single argument explicit by default. If an implicit conversion between types is 
+  both semantically equivalent and performant, you can consider making the constructor non-explicit.
+- Do not make copy or move constructors explicit, as these do not perform conversions.
+
+14.17 Constexpr aggregates and classes
+- If you want your class to be able to be evaluated at compile-time, make your member functions and constructor constexpr.
+- 
+
+
+
+
 
 
 
