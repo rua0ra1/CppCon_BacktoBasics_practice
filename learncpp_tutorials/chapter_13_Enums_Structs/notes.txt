@@ -1,0 +1,36 @@
+13.1 Introduction to user defined types
+- C++ has two different categories of compound types that can be used to create program-define types
+  1) Enumerated types ( includigng unscoped and scoped enumerations)
+  2) class types (including structs, classes and unions)
+- Don’t forget to end your type definitions with a semicolon.
+- Name your program-defined types starting with a capital letter and do not use a suffix.
+- A program-defined type used in only one code file should be defined in that code file as close to the first point of use as possible.
+- A program-defined type used in multiple code files should be defined in a header file with the same name as 
+  the program-defined type and then #included into each code file as needed.
+- type definitions are partially exempt from the one definiton rule (ODR)
+- Fundamental, Compound, user defined, program defined
+
+
+13.2 Unscoped enumeration
+- An enumeration (also called an enumerated type or an enum) is a compound data type whose values are 
+  restricted to a set of named symbolic constants (called enumerators).
+- each enumeration needs to be fully defined before we can use it (a forward declaration is not sufficient).
+- Memory is allocated for each of these objects. Note that the initializer for an enumerated type must be one of the defined enumerators for that type.
+- An enumeration or enumerated type is the program-defined type itself (e.g. Color).
+- An enumerator is a specific named value belonging to the enumeration (e.g. red).
+- Name your enumerated types starting with a capital letter. Name your enumerators starting with a lower case letter.
+- f you’re wondering how we can use an enumerator where an integral value is expected, unscoped enumerators will implicitly convert to integral values. 
+- Unscoped enumerations are named such because they put their enumerator names into the same scope as the 
+  enumeration definition itself (as opposed to creating a new scope region like a namespace does).
+- Prefer putting your enumerations inside a named scope region (such as a namespace or class) so the enumerators don’t pollute the global namespace.
+
+13.3 Unscoped enumerator integral conversions
+- Avoid assigning explicit values to your enumerators unless you have a compelling reason to do so.
+- 
+ 
+
+
+
+
+
+
