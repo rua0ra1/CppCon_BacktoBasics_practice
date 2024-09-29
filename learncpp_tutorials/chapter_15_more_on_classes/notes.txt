@@ -1,0 +1,41 @@
+15.1 the hidden this pointer and member function chanining
+- The answer is that C++ utilizes a hidden pointer named this! In this lesson, we’ll take a look at this in more detail.
+- We use -> to select a member from a pointer to an object. this->m_id is the equivalent of (*this).m_id.
+- simple.setID(2);   --> Simple::setID(&simple, 2); 
+- All non-static member functions have a this const pointer that holds the address of the implicit object.
+- it can sometimes be useful to have member function retur the implicit object as a return value. The primary reason
+   to do this is to allow member function to be chained together. so several  member funcitons can be called "function chaining"
+- ressting a class back to default state
+- this and const objects. for non cosnt member functions, this is a const pointer to a non const value. With const member functions, this is a const pointer 
+  to const value
+
+15.2 Classes and header files
+- Most often, classes are defined in header files of the same name as the class
+- Prefer to put your class definitions in a header file with the same name as the class. Trivial member functions 
+  (such as access functions, constructors with empty bodies, etc…) can be defined inside the class definition.
+- Prefer to define non-trivial member functions in a source file with the same name as the class.
+- Member functions defined inside the class definition are implicitly inline. 
+  Inline functions are exempt from the one definition per program part of the one-definition rule.
+- Functions defined inside the class definition are implicitly inline, which allows them to be #included into multiple code files without violating the ODR.
+- Put any default arguments for member functions inside the class definition.
+
+15.3 Nested Types (member types)
+- so far we have seen, that class types with two different kinds of members: data members and member funcitons
+- class types another kind of member: nested types ( also called member types). 
+- Define any nested types at the top of your class type.
+- Class types can also contain nested typedefs or type aliases
+
+15.4 Introduction to destructors
+- Destructor are designed to allow a class to do any necessary clean up before an object of the class is destroyed
+- A warming about the std::exit() function, which can be used to terminatyour immediately. When the program is terminated 
+  immediately, the program just ends. Local variables are not destroyed first no destructoeds will be called. 
+- Unhandled exceptions will also cause the program to terminate, 
+
+15.5 class templates with member functions
+
+
+
+
+
+
+
