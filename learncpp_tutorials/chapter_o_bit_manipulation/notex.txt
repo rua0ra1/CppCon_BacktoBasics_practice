@@ -1,0 +1,48 @@
+0.1 bit flags adn bit manipulation via std::bitset
+- Modifying individuals bit within an object is called bit manipulation
+- when individuals bits of an object are used as Boolean values, the bits are called bit flags
+- to define a set of bit flags, we will typically use an unsigned integer of the appropriate size (8 bits, 16 bits ) or std::bitset
+- Bit manipulation is one of the few times when you should unambiguously use unsigned integers (or std::bitset) ********************
+- Given a sequence of bits, we typically number the bits from right to left, starting with 0 (not 1). Each number denotes a bit position.
+- What if we want to get or set multiple bits at once, std:bitset wont allow this. we need to use unsigned integer bit flags
+
+O.2 Bitwise operator
+- c++ provides 6 bit manipulation operators, often called bitwise operators
+- Operator	Symbol	Form	Operation
+left shift	<<	x << y	all bits in x shifted left y bits
+right shift	>>	x >> y	all bits in x shifted right y bits
+bitwise NOT	~	~x	all bits in x flipped
+bitwise AND	&	x & y	each bit in x AND each bit in y
+bitwise OR	|	x | y	each bit in x OR each bit in y
+bitwise XOR	^	x ^ y	each bit in x XOR each bit in y
+- To avoid surprises, use the bitwise operators with unsigned operands or std::bitset.
+- Similar to the arithmetic assignment operators, C++ provides bitwise assignment operators in order to facilitate easy modification of variables.
+Left shift assignment	<<=	x <<= y	Shift x left by y bits
+Right shift assignment	>>=	x >>= y	Shift x right by y bits
+Bitwise OR assignment	|=	x |= y	Assign x | y to x
+Bitwise AND assignment	&=	x &= y	Assign x & y to x
+Bitwise XOR assignment	^=	x ^= y	Assign x ^ y to x
+-  There is no bitwise NOT assignment operator. This is because the other bitwise operators are binary, but bitwise NOT is unary ***********
+- Bitwise operators will promote operands with narrower integral types to int or unsigned int.
+
+O.3 Bit manipulation with bitwise operators and bit masks
+- Unfortunately, the bitwise operators don’t know how to work with bit positions. Instead they work with bit masks.
+- A bit mask is a predefined set of bits that is used to select which specific bits will be modified by subsequent operations.
+- Testing a bit (to see if it is on or off)
+- Some compilers may complain about a sign conversion with this line:flags &= ~mask2;
+   Because the type of mask2 is smaller than int, operator~ causes operand mask2 to undergo integral promotion to type int
+- flags &= static_cast<std::uint8_t>(~mask2);
+- std::bitset supports the full set of bitwise operators. So even though it’s easier to use the functions 
+  (test, set, reset, and flip) to modify individual bits, you can use bitwise operators and bit masks if you want.
+  Why would you want to? The functions only allow you to modify individual bits. The bitwise operators allow you to modify multiple bits at once.
+
+0.4 Converting integers between binary and decimal representation
+ 
+
+
+
+
+
+
+
+
