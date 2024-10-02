@@ -31,7 +31,47 @@
   immediately, the program just ends. Local variables are not destroyed first no destructoeds will be called. 
 - Unhandled exceptions will also cause the program to terminate, 
 
-15.5 class templates with member functions
+15.6 class templates with member functions
+- Member variables of a class can be made static by using the static keyword. 
+  Unlike normal member variables, static member variables are shared by all objects of the class. 
+  Consider the following program, similar to the above
+- Static members are global variables that live inside the scope region of the class.
+- Access static members using the class name and the scope resolution operator (::).
+- Defining and initializing static member variables
+- Note that this static member definition is not subject to access controls: you can define and initialize the value even if it’s declared as private 
+- Initialization of static member variables inside the class definition
+- Make your static members inline or constexpr so they can be initialized inside the class definition.
+- Only static members may use type deduction (auto and CTAD)
+
+15.7 Static Member functions
+- Member variables aren’t the only type of member that can be made static. 
+  Member functions can be made static as well. Here is the above example with a static member function accessor
+- In general, a static class is preferable when you have static data members and/or need access controls. Otherwise, prefer a namespace.
+- C++ does not support static constructors
+
+15.8 Friend non member functions
+- inside the body of a class, a friend declaration (using the keyword) can be used to tell the compiler that some other 
+  class or functions is now a friend. 
+- Friendship is always granted by the class whose members will be accessed (not by the class or function desiring access). 
+  Between access controls and granting friendship, 
+  a class always retains the ability to control who can access its members.
+- A friend function should prefer to use the class interface over direct access whenever possible.
+- Prefer to implement a function as a non-friend when possible and reasonable.
+
+15.9 Friend classes and friend member functions
+- A friend class is a class that can access the private and protected members of another class
+
+15.10 Ref qualifiers
+- 
+
+
+
+
+
+
+
+
+
 
 
 
