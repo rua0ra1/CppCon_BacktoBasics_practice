@@ -1,0 +1,18 @@
+24.2 Basic inheritance in C++
+- Inheritance in C++ takes places between classes. In an inheritance (is a ) relationship. 
+
+24.3 Constructors and initializaton of derived classes
+- when base is instantiated
+  Memory for base is set aside
+  The appropriate Base constructor is called
+  The member initializer list initializes variables
+  The body of the constructor executes
+  Control is returned to the caller
+- The end result is that the above example does not work because m_id was inherited from Base,
+  and only non-inherited variables can be initialized in the member initializer list.
+- Note that it doesn’t matter where in the Derived constructor member initializer list the Base constructor is called -- it will always execute first.
+
+24.5 Inheritance and access specifiers
+- Favor private members over protected members.
+- 
+
