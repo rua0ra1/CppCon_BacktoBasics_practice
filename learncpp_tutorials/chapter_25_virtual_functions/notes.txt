@@ -22,6 +22,63 @@
 - There is one special case in which a derived class virtual function override can have a different return type than the base class and still be considered a matching override. If the return type of a virtual function is a pointer or a reference to some class, 
 override functions can return a pointer or a reference to a derived class. These are called covariant return types. Here is an example:
 
+25.4 Virtual destructors, virtual Assignment and overriding virtualization
+- Whenever you are dealing with inheritance, you should make any explicit destructors virtual.
+- virtual ~Base() = default; // generate a virtual default destructor
+- Consequently, we are going to recommend you leave your assignments non-virtual for now, in the interest of simplicity.
+- A base class destructor should be either public and virtual, or protected and nonvirtual.” ***********
+- Now that the final specifier has been introduced into the language, our recommendations are as follows:
+    1)  If you intend your class to be inherited from, make sure your destructor is virtual.
+    2)  If you do not intend your class to be inherited from, mark your class as final. This will prevent 
+        other classes from inheriting from it in the first place, without imposing any other use restrictions on the class itself.
+
+25.5 Early binding and late binding
+- In general programming, binding is the process of associating names with such properties. 
+  Function binding (or method binding) is the process that determines what function definition is associated with a function call.
+  The process of actually invoking a bound function is called dispatching.
+- Most of the function calls the compiler encounters will be direct function calls. A direct function call is a statement that directly calls a function. For example:
+- In C++, when a direct call is made to a non-member function or a non-virtual member function, the compiler can determine which function definition should be matched to the call. 
+  This is sometimes called early binding (or static binding), as it can be performed at compile-time.
+- In some cases, a function call can’t be resolved until runtime. 
+  In C++, this is sometimes known as late binding (or in the case of virtual function resolution, dynamic dispatch).
+- In C++, one way to get late binding is to use function pointers. 
+- The virtual table is a lookup table of functions used to resolve function calls in a dynamic/late binding manner
+  In C++, virtual function resolution is sometimes called dynamic dispatch.
+
+25.6 Pure virtual functions, abstract base classes and interface class
+- Using a pure virtual function has two main consequences: First, any class with one or more pure virtual functions becomes an abstract base class, 
+  which means that it can not be instantiated! Consider what would happen if we could create an instance of Base:
+- Just like with normal virtual functions, pure virtual functions can be called using a reference (or pointer) to a base class:
+- Any class with pure virtual functions should also have a virtual destructor.
+- Interfaces is a class that has no member functions and where all of the functions are pure virtual interfaces are useful
+- inteface classes are often named beginning with an I. Here's a sample interface class
+
+25.9 Object Slicing
+
+- But what happens if instead of setting a Base reference or pointer to a Derived object, we simply assign a Derived object to a Base object?
+- it will lead to object slicing where base only see base part of derived
+- Because base was and still is just a Base, Base’s virtual pointer still points to Base. Thus, base.getName() resolves to Base::getName().
+- Yet another area where new programmers run into trouble with slicing is trying to implement polymorphism with std::vector. Consider the following program:
+
+25.10 dynamic casting
+- Always ensure your dynamic casts actually succeeded by checking for a null pointer result.
+- We know that C++ will implicitly let you convert a Derived pointer into a Base pointer (in fact, getObject() does just that). This process is sometimes called upcasting.
+- C++ provides a casting operator named dynamic_cast that can be used for just this purpose. Although dynamic casts have a few different capabilities, by far the most common use for dynamic casting 
+  is for converting base-class pointers into derived-class pointers. This process is called downcasting.
+- Always ensure your dynamic casts actually succeeded by checking for a null pointer result.
+- Also note that there are several cases where downcasting using dynamic_cast will not work:
+  1) With protected or private inheritance.
+  2) For classes that do not declare or inherit any virtual functions (and thus don’t have a virtual table).
+  3) In certain cases involving virtual base classes (see this page for an example of some of these cases, and how to resolve them).
+- Although all of the above examples show dynamic casting of pointers (which is more common), dynamic_cast can also be used with references. 
+  This works analogously to how dynamic_cast works with pointers.
+- New programmers are sometimes confused about when to use static_cast vs dynamic_cast. The answer is quite simple: use static_cast unless you’re downcasting, in which case dynamic_cast is usually a better choice. 
+  However, you should also consider avoiding casting altogether and just use virtual functions.
+- 
+
+
+
+
 
 
 
