@@ -1,0 +1,28 @@
+25.1 Pointers and references to the base class of dervied objects
+- However, since Derived has a Base part, a more interesting question is whether C++ will let us set a Base pointer or reference to a Derived object. It turns out, we can!
+- It turns out that because rBase and pBase are a Base reference and pointer,
+- Although both of these techniques could save us a lot of time and energy, they have the same problem. The pointer or reference to the base class calls the base version of the function rather than the derived version. 
+  If only there was some way to make those base pointers call the derived version of a function instead of the base version…
+
+25.2 Virtual functions and polymorphism
+- A virtual function is a special type of member function that, when called, resolves to the most-derived 
+  version of the function for the actual type of the object being referenced or pointed to.
+- A derived function is considered a match if it has the same signature (name, parameter types, and whether it is const) 
+  and return type as the base version of the function. Such functions are called overrides.
+- Note that virtual function resolution only works when a virtual member function is called through a pointer or reference to a class type object.
+- Compile-time polymorphism refers to forms of polymorphism that are resolved by the compiler. These include function overload resolution, as well as template resolution.
+- Runtime polymorphism refers to forms of polymorphism that are resolved at runtime. This includes virtual function resolution.
+- If a function is virtual, all matching overrides in derived classes are implicitly virtual.
+- Never call virtual functions from constructors or destructors. *************************
+25.3 — The override and final specifiers, and covariant return types
+- To help address the issue of functions that are meant to be overrides but aren’t, the override specifier can be applied to any 
+  virtual function by placing the override specifier after the function signature (the same place a function-level const specifier goes).
+- Use the virtual keyword on virtual functions in a base class.
+- Use the override specifier (but not the virtual keyword) on override functions in derived classes. This includes virtual destructors.
+- There is one special case in which a derived class virtual function override can have a different return type than the base class and still be considered a matching override. If the return type of a virtual function is a pointer or a reference to some class, 
+override functions can return a pointer or a reference to a derived class. These are called covariant return types. Here is an example:
+
+
+
+
+

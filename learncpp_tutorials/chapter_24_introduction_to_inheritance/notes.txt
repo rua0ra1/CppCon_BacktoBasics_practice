@@ -14,5 +14,22 @@
 
 24.5 Inheritance and access specifiers
 - Favor private members over protected members.
+
+24.7 calling inherited functions and overriding behaviour
+- Note that when you redefine a function in the derived class, the derived function does not inherit the access specifier of the function with the same name in the base class. It uses whatever access specifier it is defined under in the derived class. 
+  Therefore, a function that is defined as private in the base class can be redefined as public in the derived class, or vice-versa!
+- Calling function identify() without a scope resolution qualifier would default to the identify() in the current class, which would be Derived::identify().
+  This would cause Derived::identify() to call itself, which would lead to an infinite recursion!
+-  friend functions of the base class aren’t actually part of the base class, using the scope resolution qualifier won’t work. Instead, we need a way to make our 
+   Derived class temporarily look like the Base class so that the right version of the function can be called.
 - 
+
+24.8 Hiding inherited functionality
+- C++ gives us the ability to change an inherited member’s access specifier in the derived class. This is done by using a using declaration to identify the (scoped) 
+  base class member that is having its access changed in the derived class, under the new access specifier.
+  -Perhaps surprisingly, given a set of overloaded functions in the base class, there is no way to change the access specifier for a single overload. You can only change them all:
+- You can also mark member functions as deleted in the derived class, which ensures they can’t be called at all through a derived object:
+
+- Avoid multiple inheritance unless alternatives lead to more complexity.
+
 
