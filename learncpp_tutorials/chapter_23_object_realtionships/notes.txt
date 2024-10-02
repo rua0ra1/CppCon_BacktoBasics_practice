@@ -1,0 +1,83 @@
+23.1 object relationships
+- there are many kind of relationships two object may have in real life. an dwe use specific relation type words
+  to describe these relationships.
+- part of, has a , depends on and member of 
+
+23.2 Composition
+- process of building complex objects from simpler ones is called object Composition
+- struct and classes are called composite type
+- there are two basic types of object composition: composition and aggregration
+- To qualify as a composition, an object and  a part must have the following relationships
+   1) The part (member) is part of the object (class)
+   2) The part (member) can only belong to one object (class) at a time
+   3) The part (member) has its existence managed by the object (class)
+   4) The part (member) does not know about the existence of the object (class)
+- Because of this, composition is sometimes called a “death relationship”.
+- Compositions that need to do dynamic allocation or deallocation may be implemented using pointer data members. 
+  In this case, the composition class should be responsible for doing all necessary memory management itself (not the user of the class).
+- A composition may defer creation of some parts until they are needed.
+- A composition may opt to use a part that has been given to it as input rather than create the part itself.
+- A composition may delegate destruction of its parts to some other object (e.g. to a garbage collection routine).
+- The key point here is that the composition should manage its parts without the user of the composition needing to manage anything.
+- A good rule of thumb is that each class should be built to accomplish a single task
+
+23.3 aggregration
+- To qualify as an aggregation, a whole object and its parts must have the following relationship:
+  1) The part (member) is part of the object (class)
+  2) The part (member) can (if desired) belong to more than one object (class) at a time
+  3) The part (member) does not have its existence managed by the object (class)
+  4) The part (member) does not know about the existence of the object (class)
+-  When an aggregation is created, the aggregation is not responsible for creating the parts. 
+  When an aggregation is destroyed, the aggregation is not responsible for destroying the parts.
+- We can say that aggregation models “has-a” relationships
+- Similar to a composition, the parts of an aggregation can be singular or multiplicative.
+- Implement the simplest relationship type that meets the needs of your program, not what seems right in real-life.
+- Compositions: Typically use normal member variables
+      Can use pointer members if the class handles object allocation/deallocation itself
+      Responsible for creation/destruction of parts
+    Aggregations:
+     Typically use pointer or reference members that point to or reference objects that live outside the scope of the aggregate class
+     Not responsible for creating/destroying part
+- For this reason, compositions should be favored over aggregations.
+- References Cannot be Stored in Containers: You cannot store references in containers like std::vector because references cannot be reassigned, and containers need to manage their elements (like copying or moving).
+
+23.4 Association
+- In this lesson, we’ll take a look at a weaker type of relationship between two otherwise unrelated objects, called an association.
+- To qualify as an association, an object and another object must have the following relationship:
+     The associated object (member) is otherwise unrelated to the object (class)
+     The associated object (member) can belong to more than one object (class) at a time
+     The associated object (member) does not have its existence managed by the object (class)
+     The associated object (member) may or may not know about the existence of the object (class)
+- We can say that association models as “uses-a” relationship. The doctor “uses” the patient (to earn income)
+- Because associations are a broad type of relationship, they can be implemented in many different ways. 
+  However, most often, associations are implemented using pointers, where the object points at the associated object.
+- In general, you should avoid bidirectional associations if a unidirectional one will do, as they add complexity and tend to be harder to write without making errors.
+- 
+Relationship type	Whole/part	Whole/part	Otherwise unrelated
+Members can belong to multiple classes	No	Yes	Yes
+Members’ existence managed by class	Yes	No	No
+Directionality	Unidirectional	Unidirectional	Unidirectional or bidirectional
+Relationship verb	Part-of	Has-a	Uses-a
+- Reflexive association - Sometimes objects may have a relationship with other objects of the same type. This is called a reflexive association. 
+  course and its prerequisite 
+- 
+
+23.5 Dependencies
+- There’s typically some confusion about what differentiates a dependency from an association.
+  In C++, associations are a relationship where one class keeps a direct or indirect “link” to the associated class as a member. For example, a Doctor class has an array of pointers to its Patients as a member. You can always ask the Doctor who its patients are. The Driver class holds the id of the Car the driver object owns as an integer member. The Driver always knows what Car is associated with it.
+  Dependencies typically are not members. Rather, the object being depended on is typically instantiated as needed (like opening a file to write data to), or passed into a function as a parameter (like std::ostream in the overloaded operator<< above).
+
+23.6 Container class
+-  Although C++ has built-in array functionality, programmers will 
+   often use an array container class (std::array or std::vector) instead because of the additional benefits they provide
+-  Container classes typically implement a fairly standardized minimal set of functionality. Most well-defined containers will include functions that
+   1) create an empty container (via a constructor)
+   2) insert a new object into the container
+   3) remove an object form the container
+   4) report number of object currently in the container
+   5) Empty the container of all objects
+   6) provide accessto the stored objects
+   7) sort the elements
+- Value containers are compositions that store copies of the objects that they are holding (and thus are responsible for creating and destroying those copies).
+- Reference containers are aggregations that store pointers or references to other objects (and thus are not responsible for creation or destruction of those objects).
+- 
