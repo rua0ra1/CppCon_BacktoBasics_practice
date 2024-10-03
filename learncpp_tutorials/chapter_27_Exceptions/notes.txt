@@ -1,0 +1,59 @@
+27.1 the need for exceptions
+- Exception handling provides a mechanism to decouple handling of errors or other exceptional circumstances from the typical control flow of your code. 
+-  This allows more freedom to handle errors when and how ever is most useful for a given situation, alleviating most (if not all) of the messiness that return codes cause.
+
+27.2 Basic Exception handling
+- Exceptions in C++ are implemented using three keywords that work in conjunction with each other: throw, try, and catch.
+- In C++, a throw statement is used to signal that an exception or error case has occurred (think of throwing a penalty flag).
+   Signaling that an exception has occurred is also commonly called raising an exception.
+- throw -1; // throw a literal integer value
+  throw ENUM_INVALID_INDEX; // throw an enum value
+  throw "Can not take square root of negative number"; // throw a literal C-style (const char*) string
+  throw dX; // throw a double variable that was previously defined
+  throw MyException("Fatal Error"); // Throw an object of class MyException
+- try merely tells the program, “Hey, if any of the statements inside this try block throws an exception, grab it!”.
+- Actually handling exceptions is the job of the catch block(s). 
+  The catch keyword is used to define a block of code (called a catch block) that handles exceptions for a single data type.
+- Catch parameters work just like function parameters, with the parameter being available within the subsequent catch block. Exceptions of fundamental types can be caught by value, but exceptions of non-fundamental types should be caught 
+  by const reference to avoid making an unnecessary copy (and, in some cases, to prevent slicing).
+- No type conversion is done for exceptions (so an int exception will not be converted to match a catch block with a double parameter).
+- There are four common things that catch blocks do when they catch an exception:
+  1) First, catch blocks may print an error (either to the console, or a log file) and then allow the function to proceed.
+  2) Second, catch blocks may return a value or error code back to the caller.
+  3) Third, a catch block may throw another exception. Because the catch block is outside of the try block, the newly thrown exception in this case is not handled by the preceding try block -- it’s handled by the next enclosing try block.
+  4) Fourth, a catch block in main() may be used to catch fatal errors and terminate the program in a clean way.
+
+27.3 Exceptions and functions, and stack unwinding
+- Try blocks catch exceptions not only from statements within the try block, but also from functions that are called within the try block.
+- Unwinding the stack destroys local variables in the functions that are unwound (which is good, because it ensures their destructors execute).
+
+27.4 Uncaught exceptions and catch all handlers
+- The call stack may or may not be unwound if an exception is unhandled.
+- If the stack is not unwound, local variables will not be destroyed, which may cause problems if those variables have non-trivial destructors.
+- catch-- all handlers
+- Fortunately, C++ also provides us with a mechanism to catch all types of exceptions. This is known as a catch-all handler
+- If your program uses exceptions, consider using a catch-all handler in main, to help ensure orderly behavior if an unhandled exception occurs.
+- If an exception is caught by the catch-all handler, you should assume the program is now in some indeterminate state, perform cleanup immediately, and then terminate.
+- Therefore, in debug builds, it can be useful to disable the catch-all handler. We can do this via conditional compilation directives.
+
+27.5 Exceptions,classes and inheritance
+- Constructors are another area of classes in which exceptions can be very useful. If a constructor must fail for some reason (e.g. the user passed in invalid input), 
+  simply throw an exception to indicate the object failed to create.
+-   Fortunately, the C++ standard library comes with RAII-compliant classes to manage common resource types, such as files
+   (std::fstream, covered in lesson 28.6 -- Basic file I/O) and dynamic memory (std::unique_ptr and the other smart pointers)
+- class Foo
+  private:
+    int * ptr;
+- class Foo
+  private:
+   std::unique_ptr<int> ptr;// std::unique_ptr willl handle allocation/ deallocation
+- Exceptions of a fundamental type can be caught by value since they are cheap to copy.
+- Exceptions of a class type should be caught by (const) reference to prevent expensive copying and slicing.
+- 
+
+
+
+
+
+
+
