@@ -49,7 +49,50 @@
    std::unique_ptr<int> ptr;// std::unique_ptr willl handle allocation/ deallocation
 - Exceptions of a fundamental type can be caught by value since they are cheap to copy.
 - Exceptions of a class type should be caught by (const) reference to prevent expensive copying and slicing.
+- Handlers for derived exception classes should be listed before those for base classes.
+- Exception objects need to be copyable.
+
+27.6 Rethrowing Exceptions
+- In this case, getIntValue() throws a Derived object, but the catch block is catching a Base reference. 
+  This is fine, as we know we can have a Base reference to a Derived object. However, when we throw an exception, the thrown exception is 
+  copy-initialized from variable exception. Variable exception has type Base, so the copy-initialized exception
+- When rethrowing the same exception, use the throw keyword by itself
+
+27.7 Function try blocks
+- Use function try blocks when you need a constructor to handle an exception thrown in the member initializer list.
+- Avoid letting control reach the end of a function-level catch block. Instead, explicitly throw, rethrow, or return.
+- This means that you can’t use function try to clean up after a class. If you want to clean up after a class, follow the standard rules for cleaning up classes that throw exceptions 
+  see the “When constructors fail” subsection of lesson 27.5 -- Exceptions, classes, and inheritance).
+- Function try is useful primarily for either logging failures before passing the exception up the stack, or for changing the type of exception thrown.
+
+
+27.8 Exception Dangers and downside
+- The best option (whenever possible) is to prefer to stack allocate objects that implement RAII (automatically allocate resources on construction, deallocate resource on destruction). That way when the object managing the resource goes out of 
+  scope for any reason, it will automatically deallocate as appropriate, so we don’t have to worry about such things!
+- Destructors should not throw exceptions.
+- Exception handling is best used when all of the following are true:
+The error being handled is likely to occur only infrequently.
+The error is serious and execution could not continue otherwise.
+The error cannot be handled at the place where it occurs.
+There isn’t a good alternative way to return an error code back to the caller.
+
+27.9 Exception specification and no exception
+- To define a function as non-throwing, we can use the noexcept specifier. 
+  To do so, we use the noexcept keyword in the function declaration, placed to the right of the function parameter list:
+- lways make move constructors, move assignment, and swap functions noexcept.
+
+Make copy constructors and copy assignment operators noexcept when you can.
+
+Use noexcept on other functions to express a no-fail or no-throw guarantee.
 - 
+
+27.10 std::move_if_noexcept
+- 
+
+
+
+
+
 
 
 

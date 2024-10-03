@@ -99,7 +99,7 @@ int main()
 } */
 
 // debugging unhandled exceptions
-#include <iostream>
+/* #include <iostream>
 #define NDEBUG
 
 struct GameSession
@@ -144,4 +144,79 @@ int main()
     saveGame(session); // save the user's game (even if catch-all handler was hit)
 
     return 0;
+} */
+
+/* #include <iostream>
+
+class Base
+{
+public:
+    Base() {}
+};
+
+class Derived: public Base
+{
+public:
+    Derived() {}
+};
+
+int main()
+{
+    try
+    {
+        throw Derived();
+    }
+    catch (const Derived& derived)
+    {
+        std::cerr << "caught Derived";
+    }
+    catch (const Base& base)
+    {
+        std::cerr << "caught Base";
+    }
+
+    return 0;
+}
+ */
+
+// Try and catch blocks work well enough in most cases
+#include <iostream>
+
+class A
+{
+private:
+	int m_x;
+public:
+	A(int x) : m_x{x}
+	{
+		if (x <= 0)
+			throw 1; // Exception thrown here
+	}
+};
+
+class B : public A
+{
+public:
+	B(int x) try : A{x}
+	{
+		// What happens if creation of A fails and we want to handle it here?
+	}
+    catch(...){
+
+                std::cerr << "Exception caught\n";
+
+                throw; // rethrow the existing exception
+    }
+};
+
+int main()
+{
+	try
+	{
+		B b{0};
+	}
+	catch (int)
+	{
+		std::cout << "Oops\n";
+	}
 }
