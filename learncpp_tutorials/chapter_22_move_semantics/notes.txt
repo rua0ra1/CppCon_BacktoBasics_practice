@@ -1,0 +1,72 @@
+22.1 smart pointer and move semantics
+- At heart, these kinds of issues occur because pointer variables have no inherent mechanism to clean up after themselves.
+- Move semantics:
+    1) What if, instead of having our copy constructor and assignment operator copy the pointer (“copy semantics”), 
+       we instead transfer/move ownership of the pointer from the source to the destination object?
+    2) This is the core idea behind move semantics. Move semantics means the class will transfer ownership of the object rather than making a copy.-
+- Deleting a nullptr is okay, as it does nothing.
+- prior to C++11, the C++ language simply had no mechanism to differentiate “copy semantics” from “move semantics”.
+- Because of this, in C++11, the concept of “move” was formally defined, and “move semantics” were added to the language to properly differentiate copying from moving
+
+22.2 R values references
+- L-value references to const objects are particularly useful because they allow us to pass any type of argument
+  (l-value or r-value) into a function without making a copy of the argument.
+- C++11 adds a new type of reference called an r-value reference. An r-value reference is a reference that is designed to be initialized with an r-value (only). 
+- While an l-value reference is created using a single ampersand, an r-value reference is created using a double ampersand:
+- important
+ 1) First, r-value references extend the lifespan of the object they are initialized with to the lifespan of the r-value reference (l-value references to const objects can do this too). 
+ 2) Second, non-const r-value references allow you to modify the r-value!
+- R-value references are more often used as function parameters. This is most useful for function overloads when you want to have different 
+  behavior for l-value and r-value arguments.
+- You already know that literal 5 is an rvalue of type int, and int x is an lvalue of type int. Similarly, int&& ref is an lvalue of type int&&.
+
+22.3 Move semantics and Move assignment
+- C++11 defines two new functions in service of move semantics: a move constructor, and a move assignment operator. 
+ Whereas the goal of the copy constructor and copy assignment is to make a copy of one object to another, the goal of 
+ the move constructor and move assignment is to move ownership of the resources from one object to another (which is typically 
+ much less expensive than making a copy).
+- Move constructors and move assignment should be marked as noexcept. This tells the compiler that these functions will not throw exceptions.
+- The move constructor and move assignment are called when those functions have been defined, and the argument for construction or assignment is an rvalue. 
+  Most typically, this rvalue will be a literal or temporary value.
+- The compiler will create an implicit move constructor and move assignment operator if all of the following are true:
+  There are no user-declared copy constructors or copy assignment operators.
+  There are no user-declared move constructors or move assignment operators.
+  There is no user-declared destructor.
+- The implicit move constructor and move assignment will copy pointers, not move them. If you want to move a pointer member, 
+   you will need to define the move constructor and move assignment yourself. **************************************************
+- Move semantics is an optimization opportunity.
+- Move functions should always leave both objects in a valid state
+- Automatic l-values returned by value may be moved instead of copied
+- Either explicitly delete them (making it clear this is the desired behavior), or default them (making the class move-only).
+- The rule of five says that if the copy constructor, copy assignment, move constructor, move assignment, or destructor are 
+  defined or deleted, then each of those functions should be defined or deleted.
+- std::move can be used whenever we want to treat an l-value like an r-value for the purpose of invoking move semantics instead of copy semantics.
+
+22.5 std::unique_ptr
+- unline auto_ptr std::unqiue_pointer goes out of scope
+- std::unique_ptr is smart enough to know whether to use scalar delete or array delete,
+   so std::unique_ptr is okay to use with both scalar objects and arrays.
+- Favor std::array, std::vector, or std::string over a smart pointer managing a fixed array, dynamic array, or C-style string.
+- Use std::make_unique() instead of creating std::unique_ptr and using new yourself.
+
+
+22.6 std::shared_ptr
+- Always make a copy of an existing std::shared_ptr if you need more than one std::shared_ptr pointing to the same resource.
+- However, when using std::make_shared(), this can be optimized into a single memory allocation, which leads to better performance.
+- However, when a std::shared_ptr is cloned using copy assignment, the data in the control block can be appropriately updated to indicate that there
+  are now additional std::shared_ptr co-managing the resource.
+- In C++17 and earlier, std::shared_ptr does not have proper support for managing arrays, and should not be used to manage a C-style array. 
+  As of C++20, std::shared_ptr does have support for arrays.
+
+22.7 Circular dependancies
+- std::weak_ptr was designed to solve the “cyclical ownership” problem described above.
+- he easiest way to test whether a std::weak_ptr is valid is to use the expired() member function, which returns true if the std::weak_ptr 
+  is pointing to an invalid object, and false otherwise
+- std::shared_ptr can be used when you need multiple smart pointers that can co-own a resource. The resource will be deallocated when the last std::shared_ptr goes out of scope. std::weak_ptr can be used when you want a smart pointer that can see and use a shared resource, but does not participate in the ownership of that resource.
+
+
+
+
+
+
+
