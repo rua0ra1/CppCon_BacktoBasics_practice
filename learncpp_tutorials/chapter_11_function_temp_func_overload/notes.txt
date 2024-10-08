@@ -1,0 +1,30 @@
+11.6 Function Templates
+- the template system was designed to simplify the process of creating functions (or classes) that are able to work with different data types.
+- The compiler can use a single template to generate a family of related functions or classes, each using a different set of types.
+- Templates can work with types that didn’t even exist when the template was written. This helps make template code both flexible and future proof!
+- When we create our function template, we use placeholder types (also called type template parameters, or  informally template types) for any parameter
+  type retur type or type used in the function body
+- c++ support 3 different kind of parameters
+   1) Type template parameters (where the template parameter represents a type).
+   2) Non-type template parameters (where the template parameter represents a constexpr value).
+   3) Template template parameters (where the template parameter represents a template).
+
+11.7 Function template instantation
+- Funcion templates are not actual functions, their job is to generate functions( that are compiled and executed)
+- The process of creating functions from function templates is called function template instatation and its called im
+- The normal function call syntax will prefer a non-template function over an equally viable function instantiated from a template.
+- Favor the normal function call syntax when making calls to a function instantiated from a function template (unless you need the 
+  function template version to be preferred over a matching non-template function).
+- Function template with non template parameters. A function template can have both template parameter and non template parameters
+- Instantiated functions may not always make sense semantically
+- In lesson 7.10 -- Static local variables, we discussed static local variables, which are local variables with static duration (they persist for the lifetime of the program).
+- Use function templates to write generic code that can work with a wide variety of types whenever you have the need.
+
+11.8 Using function templates in multiple files
+- 
+
+
+
+
+
+
