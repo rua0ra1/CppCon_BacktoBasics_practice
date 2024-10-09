@@ -1,0 +1,16 @@
+26.1 Template Classes
+- splitting up template classes
+- The easiest way is to simply put all of your template class code in the header file 
+  (in this case, put the contents of Array.cpp into Array.h, below the class).
+
+26.2 Template non type parameters
+26.3 Function template specialization
+- Explicit template specialization (often shortened to template specialization) is a feature that allows us to explicitly define different implementations of a template for specific types or values. 
+-  When all of the template parameters are specialized, it is called a full specialization. 
+- When only some of the template parameters are specialized, it is called a partial specialization.
+- function template specialization for the member functions
+
+26.4 class template specialization
+- Class template specialization allows us to specialize a template class for a particular data type 
+  (or data types, if there are multiple template parameters).
+- 
