@@ -21,7 +21,26 @@
 - Use function templates to write generic code that can work with a wide variety of types whenever you have the need.
 
 11.8 Using function templates in multiple files
+- put all your template code in header not in cpp files
+- You may be wondering why this doesn’t cause a violation of the one-definition rule (ODR). 
+  The ODR says that types, templates, inline functions, and inline variables are allowed to have 
+  identical definitions in different files. So there is no problem if the template definition is 
+  copied into multiple files (as long as each definition is identical).
+- Templates that are needed in multiple files should be defined in a header file, and then #included wherever needed. 
+  This allows the compiler to see the full template definition and instantiate the template when needed.
+
+11.9 Function templates with multiple template types
+- The answer is simple: type conversion is done only when resolving function overloads, not when performing template argument deduction.
+- compiler use auto return type.
+- Feel free to use abbreviated function templates with a single auto parameter, or where each auto parameter should be an independent 
+  type (and your language standard is set to C++20 or newer).
+
+11.10 Non type template parameters
+-  a non-type template parameter is a template parameter with a fixed type that serves as a placeholder for a constexpr value passed
+   in  as a template argument
 - 
+
+
 
 
 
