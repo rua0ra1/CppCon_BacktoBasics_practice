@@ -13,4 +13,6 @@
 26.4 class template specialization
 - Class template specialization allows us to specialize a template class for a particular data type 
   (or data types, if there are multiple template parameters).
-- 
+
+26.5 partial template speacialization
+-

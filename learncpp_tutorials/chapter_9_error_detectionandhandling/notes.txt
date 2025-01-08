@@ -54,6 +54,14 @@
   This allows errors to be displayed or parsed separately from normal output
 - For any application type that is transactional in nature (e.g. one that processes specific events, such as an interactive web browser or non-interactive web server), use a logfile to produce a 
   transactional log of events that can be reviewed later. This can include outputting to the logfile which file is being processe
-  
+
+9.5 std::cin and handling invalid input
+- A program that handles error cases well is said to be robust.
+- operator >> then extracts as many consecutive characters as it can, until it encounters either a 
+  newline character or a character that is not valid for the variable
+- 3 ways to do input validation
+  1) Prevent the user from typing invalid input in the first place and post-entry (after the user types)
+  2) Let the user enter whatever they want into a string, then validate whether the string is correct, and if so, convert the string to the final variable format.
+  3) Let the user enter whatever they want, let std::cin and operator>> try to extract it, and handle the error cases.
 
  

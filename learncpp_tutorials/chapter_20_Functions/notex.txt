@@ -1,5 +1,0 @@
-20.1 Function Pointers
-- Instead of pointers to variable, it is pointers to functions
-- Passing function as arguments to other functions
-  - one of the most useful things to do with function pointers is apass a function as an argument to another function.
-  - 

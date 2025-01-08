@@ -58,7 +58,13 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "csignal": "cpp",
+        "any": "cpp",
+        "strstream": "cpp",
+        "unordered_set": "cpp",
+        "cfenv": "cpp",
+        "typeindex": "cpp"
     },
     "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace"
 }

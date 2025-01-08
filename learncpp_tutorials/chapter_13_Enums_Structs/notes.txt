@@ -26,7 +26,67 @@
 
 13.3 Unscoped enumerator integral conversions
 - Avoid assigning explicit values to your enumerators unless you have a compelling reason to do so.
+- Make the enumerator representing 0 the one that is the best default meaning for your enumeration. If no good default meaning exists, consider adding an “invalid” or “unknown” 
+  enumerator that has value 0, so that state is explicitly documented and can be explicitly handled where appropriate.
+- Unscoped enumerations will implicitly convert to integral values
+- Enumerators have values that are of an integral type. But what integral type? The specific integral type used to represent the value of 
+  enumerators is called the enumeration’s underlying type (or base).
+- Specify the base type of an enumeration only when necessary.
+
+13.4 converting an enumeration to and from a starting
+
+13.5 Introduction of overloading the I/O operators
+
+13.6 Scoped enumerations (enum classes)
+- That solution is the scoped enumeration (often called an enum class in C++ for reasons that will become obvious shortly).
+- it has two distinct features with unscoped enum, 
+  1) they wont implicitly convert to intergers
+  2) the enumerators are only placed into the scope region of the enumeration 
+- To make a scoped enumeration, we use the keywords enum class
+- The class keyword (along with the static keyword), is one of the most 
+  overloaded keywords in the C++ language, and can have different meanings depending on context. Although scoped enumerations use the class keyword, they aren’t considered to be 
+  a “class type” (which is reserved for structs, classes, and unions).
+-  scoped enumerations place their enumerators only in the scope region of the enumeration. In other words, 
+  scoped enumerations act like a namespace for their enumerators.
+- Favor scoped enumerations over unscoped enumerations unless there’s a compelling reason to do otherwise.
+
+
+13.7 Introduction to structs, members and member selection
+- A struct (short for structure) is a program-defined data type (13.1 -- Introduction to program-defined (user-defined) types) that allows us to bundle multiple variables together into a single type. 
+- In C++, a member is a variable, function, or type that belongs to a struct (or class). All members must be declared within the struct (or class) definition.
+- . is selection operators
+
+13.8 Struct aggregate initalization
+- In general programming, an aggregate data type (also called an aggregate) is any type that can contain multiple data members. 
+  Some types of aggregates allow members to have different types (e.g. structs), 
+  while others require that all members must be of a single type (e.g. arrays).
+- The key thing to understand at this point is that structs with only data members are aggregates.
+- Aggregates use a form of initialization called aggregate initialization, which allows us to directly 
+  initialize the members of aggregates. To do this, we provide an initializer list as an initializer, 
+  which is just a braced list of comma-separated values.
+- Prefer the (non-copy) braced list form when initializing aggregates.
+- To help avoid this, C++20 adds a new way to initialize struct members called designated initializers. 
+- When adding a new member to an aggregate, it’s safest to add it to the bottom of the definition list so the initializers for other members don’t shift.
+
+13.9 Default member initialization
+- Using default member initializers (or other mechanisms that we’ll cover later), structs and classes can self-initialize even when no explicit initializers are provided!
+- Explicit initialization values take precedence over default values
+- Provide a default value for all members. This ensures that your members will be initialized even if the variable definition doesn’t include an initializer list.
+- For aggregates, prefer value initialization (with an empty braces initializer) to default initialization (with no braces).
+  Fraction f1;          // f1.numerator value initialized to 0, f1.denominator defaulted to 1
+  Fraction f2 {};       // f2.numerator value initialized to 0, f2.denominator defaulted to 1
+
+
+13.10 passing and returning structs
 - 
+
+
+
+
+
+
+
+
  
 
 
