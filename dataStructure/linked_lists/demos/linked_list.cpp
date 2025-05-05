@@ -38,6 +38,25 @@ void counting(Node *p) {
   std::cout << "Count: " << count << "\n";
 }
 
+Node *search(Node *p, int key) {
+  while (p != nullptr) {
+    if (p->data == key) {
+      return p;
+    }
+
+    p = p->next;
+  }
+
+  return nullptr;
+}
+
+Node* searchwithMovehead(Node*p, int key){
+  while(p!=nullptr){
+    if (p->data)
+  }
+
+}
+
 void create(int A[], int n) {
   Node *t, *last;
   head = new Node;
