@@ -1,0 +1,6 @@
+## phases of the compilation
+
+1) preprocessing -> compilation -> assembly -> link -> executable
+2) when can stop anywhere in the compilation steps using the flags
+3) -S stop after compilation
+4) objdump (object dump)
